@@ -24,6 +24,7 @@ import com.navercorp.fixturemonkey.ArbitraryBuilder
 import com.navercorp.fixturemonkey.api.expression.ExpressionGenerator
 import com.navercorp.fixturemonkey.api.property.Property
 import com.navercorp.fixturemonkey.api.property.PropertyNameResolver
+import com.navercorp.fixturemonkey.customizer.InnerSpec
 import java.lang.reflect.AnnotatedType
 import java.lang.reflect.Field
 import java.lang.reflect.ParameterizedType
@@ -444,6 +445,17 @@ fun <T> ArbitraryBuilder<T>.setLazyExpGetter(
     limit: Long
 ): ArbitraryBuilder<T> =
     this.setLazy(expressionGenerator, supplier, limit.toInt())
+fun <T> InnerSpec.propertyExp(
+    property: KProperty1<T, Any?>,
+    value: Any?
+): InnerSpec =
+    this.property(PropertyExpressionGenerator(KotlinProperty(property)), value)
+
+fun <T> InnerSpec.propertyExpGetter(
+    property: KFunction1<T, Any?>,
+    value: Any?
+): InnerSpec =
+    this.property(PropertyExpressionGenerator(KotlinGetterProperty(property)), value)
 
 infix fun <T, R, E> KProperty1<T, R?>.into(property: KProperty1<R, E?>): Exp<E> =
     Exp(
@@ -720,6 +732,7 @@ private class KotlinProperty<V, R>(private val property: KProperty1<V, R>) :
         property.getter.annotations.toList()
     private val fieldAnnotations: List<Annotation> =
         property.javaField?.annotations?.toList() ?: listOf()
+
     override fun getType(): Class<*> = property.javaField!!.type
 
     override fun getAnnotatedType(): AnnotatedType =

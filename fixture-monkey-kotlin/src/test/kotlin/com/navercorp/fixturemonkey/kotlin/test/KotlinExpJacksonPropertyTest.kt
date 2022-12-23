@@ -21,11 +21,9 @@ package com.navercorp.fixturemonkey.kotlin.test
 import com.fasterxml.jackson.annotation.JsonProperty
 import com.navercorp.fixturemonkey.FixtureMonkey
 import com.navercorp.fixturemonkey.LabMonkey
+import com.navercorp.fixturemonkey.customizer.InnerSpec
 import com.navercorp.fixturemonkey.jackson.plugin.JacksonPlugin
-import com.navercorp.fixturemonkey.kotlin.KotlinPlugin
-import com.navercorp.fixturemonkey.kotlin.giveMeBuilder
-import com.navercorp.fixturemonkey.kotlin.setExp
-import com.navercorp.fixturemonkey.kotlin.setExpGetter
+import com.navercorp.fixturemonkey.kotlin.*
 import net.jqwik.api.Property
 import net.jqwik.kotlin.api.any
 import org.assertj.core.api.BDDAssertions.then
@@ -52,6 +50,17 @@ class KotlinExpJacksonPropertyTest {
             .setExpGetter(JsonPropertyDataValue::getInt, intValue)
             .sample()
         then(actual.intValue).isEqualTo(intValue)
+    }
+
+    @Property
+    fun test() {
+        val actual = sut.giveMeBuilder<JsonPropertyDataValue>()
+            .setInner(
+                InnerSpec().propertyExp(JsonPropertyDataValue::intValue, 3)
+//                InnerSpec().propertyExpGetter(JsonPropertyDataValue::getInt, 3)
+            )
+            .sample()
+        then(actual.intValue).isEqualTo(3)
     }
 }
 

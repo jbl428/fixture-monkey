@@ -33,6 +33,7 @@ import javax.annotation.Nullable;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
+import com.navercorp.fixturemonkey.api.expression.ExpressionGenerator;
 import com.navercorp.fixturemonkey.api.generator.ArbitraryContainerInfo;
 import com.navercorp.fixturemonkey.api.lazy.LazyArbitrary;
 import com.navercorp.fixturemonkey.builder.ManipulatorSet;
@@ -395,6 +396,10 @@ public final class InnerSpec {
 
 	public InnerSpec allListElement(Consumer<InnerSpec> consumer) {
 		return listElement(NO_OR_ALL_INDEX_INTEGER_VALUE, consumer);
+	}
+
+	private InnerSpec property(ExpressionGenerator expressionGenerator, @Nullable Object value) {
+		return property()
 	}
 
 	public InnerSpec property(String propertyName, @Nullable Object value) {

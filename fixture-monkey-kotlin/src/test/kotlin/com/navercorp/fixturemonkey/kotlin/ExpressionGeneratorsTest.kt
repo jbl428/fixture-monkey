@@ -18,6 +18,10 @@
 
 package com.navercorp.fixturemonkey.kotlin
 
+import com.navercorp.fixturemonkey.FixtureMonkey
+import com.navercorp.fixturemonkey.LabMonkey
+import com.navercorp.fixturemonkey.customizer.InnerSpec
+import com.navercorp.fixturemonkey.jackson.plugin.JacksonPlugin
 import com.navercorp.fixturemonkey.kotlin.ExpressionGeneratorJavaTestSpecs.DogJava
 import com.navercorp.fixturemonkey.kotlin.ExpressionGeneratorJavaTestSpecs.PersonJava
 import org.assertj.core.api.BDDAssertions.then
@@ -961,5 +965,21 @@ class ExpressionGeneratorsTest {
         val actual = generator.generate()
 
         then(actual).isEqualTo("dogs[0].loves[0]")
+    }
+
+
+    private val sut: LabMonkey = FixtureMonkey.labMonkeyBuilder()
+//        .plugin(KotlinPlugin())
+        .build()
+
+    @Test
+    fun test() {
+        // given
+       val actual = sut.giveMeBuilder<PersonJava>()
+           .setInner(InnerSpec().propertyExpGetter(PersonJava::getName, "name"))
+           .sample()
+
+
+        then(actual.name).isEqualTo("name")
     }
 }
