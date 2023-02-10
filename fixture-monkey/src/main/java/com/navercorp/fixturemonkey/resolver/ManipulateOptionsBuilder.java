@@ -32,7 +32,8 @@ import com.navercorp.fixturemonkey.ArbitraryBuilder;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.matcher.MatcherOperator;
 import com.navercorp.fixturemonkey.api.property.PropertyNameResolver;
-import com.navercorp.fixturemonkey.arbitrary.ArbitraryExpressionFactory;
+import com.navercorp.fixturemonkey.expression.ApplyStrictNodeResolver;
+import com.navercorp.fixturemonkey.expression.ArbitraryExpressionFactory;
 import com.navercorp.fixturemonkey.expression.MonkeyExpressionFactory;
 
 @SuppressWarnings("UnusedReturnValue")
@@ -101,7 +102,7 @@ public final class ManipulateOptionsBuilder {
 		if (expressionStrictMode) {
 			MonkeyExpressionFactory currentMonkeyExpressionFactory = defaultMonkeyExpressionFactory;
 			defaultMonkeyExpressionFactory = expression ->
-				() -> new ApplyStrictModeResolver(currentMonkeyExpressionFactory.from(expression).toNodeResolver());
+				() -> new ApplyStrictNodeResolver(currentMonkeyExpressionFactory.from(expression).toNodeResolver());
 		}
 
 		DecomposedContainerValueFactory decomposedContainerValueFactory = new DefaultDecomposedContainerValueFactory(

@@ -16,17 +16,30 @@
  * limitations under the License.
  */
 
-package com.navercorp.fixturemonkey.resolver;
+package com.navercorp.fixturemonkey.customizer;
 
-import java.util.List;
+import javax.annotation.Nullable;
 
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
-import com.navercorp.fixturemonkey.customizer.ArbitraryManipulator;
+import com.navercorp.fixturemonkey.api.customizer.NodeManipulator;
+import com.navercorp.fixturemonkey.api.customizer.Values.ManipulatingSequenceValue;
+import com.navercorp.fixturemonkey.api.tree.ArbitraryNode;
 
 @API(since = "0.4.0", status = Status.MAINTAINED)
-@FunctionalInterface
-public interface ManipulatorOptimizer {
-	OptimizedManipulatorResult optimize(List<ArbitraryManipulator> manipulators);
+final class NodeSetDecomposedValueManipulator<T> implements NodeManipulator {
+	private final int sequence;
+	@Nullable
+	private final T value;
+
+	public NodeSetDecomposedValueManipulator(int sequence, @Nullable T value) {
+		this.sequence = sequence;
+		this.value = value;
+	}
+
+	@Override
+	public void manipulate(ArbitraryNode arbitraryNode) {
+		arbitraryNode.setRecursively(new ManipulatingSequenceValue(sequence, value));
+	}
 }

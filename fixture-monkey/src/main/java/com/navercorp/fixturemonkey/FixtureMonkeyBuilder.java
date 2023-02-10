@@ -57,13 +57,13 @@ import com.navercorp.fixturemonkey.api.property.PropertyNameResolver;
 import com.navercorp.fixturemonkey.api.type.Types;
 import com.navercorp.fixturemonkey.api.validator.ArbitraryValidator;
 import com.navercorp.fixturemonkey.expression.MonkeyExpressionFactory;
-import com.navercorp.fixturemonkey.resolver.ArbitraryTraverser;
 import com.navercorp.fixturemonkey.resolver.DecomposableContainerValue;
 import com.navercorp.fixturemonkey.resolver.DecomposedContainerValueFactory;
 import com.navercorp.fixturemonkey.resolver.ManipulateOptions;
 import com.navercorp.fixturemonkey.resolver.ManipulateOptionsBuilder;
 import com.navercorp.fixturemonkey.resolver.ManipulatorOptimizer;
 import com.navercorp.fixturemonkey.resolver.NoneManipulatorOptimizer;
+import com.navercorp.fixturemonkey.tree.ArbitraryTraverser;
 
 @API(since = "0.4.0", status = Status.MAINTAINED)
 public class FixtureMonkeyBuilder {
@@ -389,9 +389,9 @@ public class FixtureMonkeyBuilder {
 						};
 					this.register(actualType, registerArbitraryBuilder);
 				} catch (InvocationTargetException
-						| InstantiationException
-						| IllegalAccessException
-						| NoSuchMethodException e) {
+						 | InstantiationException
+						 | IllegalAccessException
+						 | NoSuchMethodException e) {
 					// ignored
 				}
 			}
@@ -455,7 +455,7 @@ public class FixtureMonkeyBuilder {
 	) {
 		this.pushAssignableTypeContainerPropertyGenerator(type, containerObjectPropertyGenerator);
 		this.pushContainerIntrospector(containerArbitraryIntrospector);
-		decomposableContainerFactoryMap.put(type, decomposedContainerValueFactory);
+		this.decomposableContainerFactoryMap.put(type, decomposedContainerValueFactory);
 		return this;
 	}
 
@@ -526,7 +526,10 @@ public class FixtureMonkeyBuilder {
 		);
 
 		GenerateOptions generateOptions = generateOptionsBuilder.build();
-		ArbitraryTraverser traverser = new ArbitraryTraverser(generateOptions);
+		ArbitraryTraverser traverser = new ArbitraryTraverser(
+			generateOptions,
+			manipulateOptionsBuilder.build().getDecomposedContainerValueFactory()
+		);
 
 		return new FixtureMonkey(
 			generateOptions,

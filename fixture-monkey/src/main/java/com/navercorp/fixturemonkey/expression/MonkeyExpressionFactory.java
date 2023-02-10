@@ -21,6 +21,8 @@ package com.navercorp.fixturemonkey.expression;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
+import com.navercorp.fixturemonkey.api.expression.MonkeyExpression;
+
 @API(since = "0.4.0", status = Status.MAINTAINED)
 @FunctionalInterface
 public interface MonkeyExpressionFactory {

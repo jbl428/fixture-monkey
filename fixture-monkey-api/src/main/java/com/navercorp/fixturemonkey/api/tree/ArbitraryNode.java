@@ -16,17 +16,32 @@
  * limitations under the License.
  */
 
-package com.navercorp.fixturemonkey.resolver;
+package com.navercorp.fixturemonkey.api.tree;
 
 import java.util.List;
+import java.util.function.Predicate;
+
+import javax.annotation.Nullable;
 
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
-import com.navercorp.fixturemonkey.customizer.ArbitraryManipulator;
+import com.navercorp.fixturemonkey.api.customizer.NextNodePredicate;
+import com.navercorp.fixturemonkey.api.customizer.Values.ManipulatingSequenceValue;
 
-@API(since = "0.4.0", status = Status.MAINTAINED)
-@FunctionalInterface
-public interface ManipulatorOptimizer {
-	OptimizedManipulatorResult optimize(List<ArbitraryManipulator> manipulators);
+@API(since = "0.5.3", status = Status.EXPERIMENTAL)
+public interface ArbitraryNode {
+
+	List<? extends ArbitraryNode> nextNodes(NextNodePredicate nextNodePredicate);
+
+	@SuppressWarnings("rawtypes")
+	void filter(Class<?> type, Predicate predicate);
+
+	void setRecursively(ManipulatingSequenceValue value);
+
+	void setJust(@Nullable Object value);
+
+	void mark();
+
+	void markAsNull(boolean toNull);
 }

@@ -41,13 +41,13 @@ import com.navercorp.fixturemonkey.api.type.TypeReference;
 import com.navercorp.fixturemonkey.api.validator.ArbitraryValidator;
 import com.navercorp.fixturemonkey.customizer.MonkeyManipulatorFactory;
 import com.navercorp.fixturemonkey.resolver.ArbitraryBuilderContext;
-import com.navercorp.fixturemonkey.resolver.ArbitraryManipulator;
+import com.navercorp.fixturemonkey.customizer.ArbitraryManipulator;
 import com.navercorp.fixturemonkey.resolver.ArbitraryResolver;
-import com.navercorp.fixturemonkey.resolver.ArbitraryTraverser;
 import com.navercorp.fixturemonkey.resolver.DefaultArbitraryBuilder;
 import com.navercorp.fixturemonkey.resolver.ManipulateOptions;
 import com.navercorp.fixturemonkey.resolver.ManipulateOptionsBuilder;
 import com.navercorp.fixturemonkey.resolver.ManipulatorOptimizer;
+import com.navercorp.fixturemonkey.tree.ArbitraryTraverser;
 
 @API(since = "0.4.0", status = Status.MAINTAINED)
 public class FixtureMonkey {
@@ -119,7 +119,7 @@ public class FixtureMonkey {
 			),
 			traverser,
 			this.validator,
-			new MonkeyManipulatorFactory(new AtomicInteger(), traverser, manipulateOptions),
+			new MonkeyManipulatorFactory(new AtomicInteger(), manipulateOptions.getDefaultMonkeyExpressionFactory()),
 			new ArbitraryBuilderContext()
 		);
 	}
@@ -128,8 +128,7 @@ public class FixtureMonkey {
 		ManipulateOptions manipulateOptions = manipulateOptionsBuilder.build();
 		MonkeyManipulatorFactory monkeyManipulatorFactory = new MonkeyManipulatorFactory(
 			new AtomicInteger(),
-			traverser,
-			manipulateOptions
+			manipulateOptions.getDefaultMonkeyExpressionFactory()
 		);
 		ArbitraryBuilderContext context = new ArbitraryBuilderContext();
 

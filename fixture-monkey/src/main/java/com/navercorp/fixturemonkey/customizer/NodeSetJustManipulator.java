@@ -16,17 +16,25 @@
  * limitations under the License.
  */
 
-package com.navercorp.fixturemonkey.resolver;
-
-import java.util.List;
+package com.navercorp.fixturemonkey.customizer;
 
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
-import com.navercorp.fixturemonkey.customizer.ArbitraryManipulator;
+import com.navercorp.fixturemonkey.api.customizer.NodeManipulator;
+import com.navercorp.fixturemonkey.api.customizer.Values.Just;
+import com.navercorp.fixturemonkey.api.tree.ArbitraryNode;
 
-@API(since = "0.4.0", status = Status.MAINTAINED)
-@FunctionalInterface
-public interface ManipulatorOptimizer {
-	OptimizedManipulatorResult optimize(List<ArbitraryManipulator> manipulators);
+@API(since = "0.5.1", status = Status.EXPERIMENTAL)
+final class NodeSetJustManipulator implements NodeManipulator {
+	private final Just value;
+
+	public NodeSetJustManipulator(Just value) {
+		this.value = value;
+	}
+
+	@Override
+	public void manipulate(ArbitraryNode arbitraryNode) {
+		arbitraryNode.setJust(value.getValue());
+	}
 }

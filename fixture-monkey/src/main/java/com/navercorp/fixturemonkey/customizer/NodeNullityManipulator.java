@@ -16,17 +16,20 @@
  * limitations under the License.
  */
 
-package com.navercorp.fixturemonkey.resolver;
+package com.navercorp.fixturemonkey.customizer;
 
-import java.util.List;
+import com.navercorp.fixturemonkey.api.customizer.NodeManipulator;
+import com.navercorp.fixturemonkey.api.tree.ArbitraryNode;
 
-import org.apiguardian.api.API;
-import org.apiguardian.api.API.Status;
+class NodeNullityManipulator implements NodeManipulator {
+	private final boolean toNull;
 
-import com.navercorp.fixturemonkey.customizer.ArbitraryManipulator;
+	public NodeNullityManipulator(boolean toNull) {
+		this.toNull = toNull;
+	}
 
-@API(since = "0.4.0", status = Status.MAINTAINED)
-@FunctionalInterface
-public interface ManipulatorOptimizer {
-	OptimizedManipulatorResult optimize(List<ArbitraryManipulator> manipulators);
+	@Override
+	public void manipulate(ArbitraryNode arbitraryNode) {
+		arbitraryNode.markAsNull(toNull);
+	}
 }

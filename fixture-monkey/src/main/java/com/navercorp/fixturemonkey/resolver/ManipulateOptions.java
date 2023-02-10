@@ -34,6 +34,7 @@ public final class ManipulateOptions {
 	private final MonkeyExpressionFactory defaultMonkeyExpressionFactory;
 
 	private final List<MatcherOperator<? extends ArbitraryBuilder<?>>> registeredArbitraryBuilders;
+
 	private final DecomposedContainerValueFactory decomposedContainerValueFactory;
 
 	private final List<MatcherOperator<PropertyNameResolver>> propertyNameResolvers;

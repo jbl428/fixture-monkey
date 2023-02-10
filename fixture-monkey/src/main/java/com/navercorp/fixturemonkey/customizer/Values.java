@@ -28,44 +28,17 @@ import org.apiguardian.api.API.Status;
  */
 @API(since = "0.5.1", status = Status.EXPERIMENTAL)
 public final class Values {
-	public static final Object NOT_NULL = new Object();
+	@Deprecated
+	public static final Object NOT_NULL = com.navercorp.fixturemonkey.api.customizer.Values.NOT_NULL;
 
 	private Values() {
 	}
 
-	public static Just just(@Nullable Object value) {
-		return new Just(value);
-	}
-
 	/**
-	 * An instance wrapped by {@code Just} represents setting value directly instead of decomposing
-	 * {@link com.navercorp.fixturemonkey.resolver.NodeSetDecomposedValueManipulator}.
-	 * Setting a property in ArbitraryBuilder does not use an instance of given value, it performs a deep copy.
-	 * If you would like to set an instance of value, use {@code set("expression", Values.just(value))}
-	 * Most common example would be setting a property to a mock instance when using mocking framework.
-	 * <p>
-	 * After setting an instance, you could not set a child property.
-	 * For example,
-	 * <pre>{@code
-	 * Order order = fixture.giveMeBuilder(Order.class)
-	 * 		.set("items", Values.just(List.of("1","2","3"))
-	 * 		.set("items[0]", "0")
-	 * 		.sample();
-	 * }</pre>
-	 * <p>
-	 * Elements of {@code items} would be "1", "2", "3".
+	 * @see com.navercorp.fixturemonkey.api.customizer.Values#just(Object)
 	 */
-	public static final class Just {
-		@Nullable
-		private final Object value;
-
-		private Just(@Nullable Object value) {
-			this.value = value;
-		}
-
-		@Nullable
-		public Object getValue() {
-			return value;
-		}
+	@Deprecated
+	public static com.navercorp.fixturemonkey.api.customizer.Values.Just just(@Nullable Object value) {
+		return com.navercorp.fixturemonkey.api.customizer.Values.just(value);
 	}
 }

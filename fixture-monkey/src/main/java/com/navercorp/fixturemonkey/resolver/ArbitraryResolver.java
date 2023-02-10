@@ -34,10 +34,20 @@ import net.jqwik.api.Arbitrary;
 import com.navercorp.fixturemonkey.ArbitraryBuilder;
 import com.navercorp.fixturemonkey.api.context.MonkeyContext;
 import com.navercorp.fixturemonkey.api.customizer.FixtureCustomizer;
+import com.navercorp.fixturemonkey.api.customizer.NextNodePredicate;
+import com.navercorp.fixturemonkey.api.customizer.NodeResolver;
 import com.navercorp.fixturemonkey.api.matcher.MatcherOperator;
 import com.navercorp.fixturemonkey.api.option.GenerateOptions;
 import com.navercorp.fixturemonkey.api.property.Property;
 import com.navercorp.fixturemonkey.api.property.RootProperty;
+import com.navercorp.fixturemonkey.api.tree.ArbitraryNode;
+import com.navercorp.fixturemonkey.customizer.ArbitraryManipulator;
+import com.navercorp.fixturemonkey.customizer.ContainerInfoManipulator;
+import com.navercorp.fixturemonkey.expression.CompositeNodeResolver;
+import com.navercorp.fixturemonkey.expression.PropertyPredicate;
+import com.navercorp.fixturemonkey.tree.ArbitraryTraverser;
+import com.navercorp.fixturemonkey.tree.ArbitraryTree;
+import com.navercorp.fixturemonkey.tree.ArbitraryTreeMetadata;
 
 @API(since = "0.4.0", status = Status.MAINTAINED)
 public final class ArbitraryResolver {
@@ -69,12 +79,23 @@ public final class ArbitraryResolver {
 		List<MatcherOperator<? extends FixtureCustomizer>> customizers,
 		List<ContainerInfoManipulator> containerInfoManipulators
 	) {
+		List<MatcherOperator<List<ContainerInfoManipulator>>> registeredContainerInfoManipulators =
+			manipulateOptions.getRegisteredArbitraryBuilders()
+				.stream()
+				.map(it ->
+					new MatcherOperator<>(
+						it.getMatcher(),
+						((DefaultArbitraryBuilder<?>)it.getOperator()).getContext().getContainerInfoManipulators()
+					)
+				)
+				.collect(Collectors.toList());
+
 		ArbitraryTree arbitraryTree = new ArbitraryTree(
 			rootProperty,
 			this.traverser.traverse(
 				rootProperty,
 				containerInfoManipulators,
-				manipulateOptions.getRegisteredArbitraryBuilders()
+				registeredContainerInfoManipulators
 			),
 			generateOptions,
 			monkeyContext,
@@ -106,13 +127,13 @@ public final class ArbitraryResolver {
 		ArbitraryTreeMetadata metadata
 	) {
 		List<ArbitraryManipulator> manipulators = new ArrayList<>();
-		Map<Property, List<ArbitraryNode>> nodesByType = metadata.getNodesByProperty();
+		Map<Property, List<? extends ArbitraryNode>> nodesByType = metadata.getNodesByProperty();
 		List<MatcherOperator<? extends ArbitraryBuilder<?>>> registeredArbitraryBuilders =
 			manipulateOptions.getRegisteredArbitraryBuilders();
 
-		for (Entry<Property, List<ArbitraryNode>> nodeByType : nodesByType.entrySet()) {
+		for (Entry<Property, List<? extends ArbitraryNode>> nodeByType : nodesByType.entrySet()) {
 			Property property = nodeByType.getKey();
-			List<ArbitraryNode> arbitraryNodes = nodeByType.getValue();
+			List<? extends ArbitraryNode> arbitraryNodes = nodeByType.getValue();
 
 			DefaultArbitraryBuilder<?> registeredArbitraryBuilder =
 				(DefaultArbitraryBuilder<?>)registeredArbitraryBuilders.stream()
@@ -128,7 +149,13 @@ public final class ArbitraryResolver {
 
 			ArbitraryBuilderContext context = registeredArbitraryBuilder.getContext();
 			List<ArbitraryManipulator> arbitraryManipulators = context.getManipulators().stream()
-				.map(it -> it.withPrependNodeResolver(prependPropertyNodeResolver(property, arbitraryNodes)))
+				.map(it -> it.withNodeResolver(nodeResolver ->
+						new CompositeNodeResolver(
+							prependPropertyNodeResolver(property, arbitraryNodes),
+							nodeResolver
+						)
+					)
+				)
 				.collect(Collectors.toList());
 
 			manipulators.addAll(arbitraryManipulators);
@@ -136,13 +163,14 @@ public final class ArbitraryResolver {
 		return manipulators;
 	}
 
-	private static NodeResolver prependPropertyNodeResolver(Property property, List<ArbitraryNode> arbitraryNodes) {
+	private NodeResolver prependPropertyNodeResolver(
+		Property property,
+		List<? extends ArbitraryNode> arbitraryNodes
+	) {
 		return new NodeResolver() {
 			@Override
-			public List<ArbitraryNode> resolve(ArbitraryNode arbitraryNode) {
-				for (ArbitraryNode node : arbitraryNodes) {
-					node.setManipulated(true);
-				}
+			public List<? extends ArbitraryNode> resolve(ArbitraryNode arbitraryNode) {
+				arbitraryNodes.forEach(ArbitraryNode::mark);
 				return arbitraryNodes;
 			}
 

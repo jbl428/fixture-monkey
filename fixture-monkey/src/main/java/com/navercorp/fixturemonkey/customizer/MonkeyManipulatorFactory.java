@@ -32,23 +32,13 @@ import org.apiguardian.api.API.Status;
 
 import net.jqwik.api.Arbitrary;
 
+import com.navercorp.fixturemonkey.api.customizer.NodeManipulator;
+import com.navercorp.fixturemonkey.api.customizer.Values.Just;
 import com.navercorp.fixturemonkey.api.generator.ArbitraryContainerInfo;
 import com.navercorp.fixturemonkey.api.lazy.LazyArbitrary;
 import com.navercorp.fixturemonkey.customizer.InnerSpecState.ManipulatorHolderSet;
-import com.navercorp.fixturemonkey.customizer.Values.Just;
 import com.navercorp.fixturemonkey.expression.MonkeyExpressionFactory;
-import com.navercorp.fixturemonkey.resolver.ApplyNodeCountManipulator;
-import com.navercorp.fixturemonkey.resolver.ArbitraryManipulator;
-import com.navercorp.fixturemonkey.resolver.ArbitraryTraverser;
-import com.navercorp.fixturemonkey.resolver.ContainerInfoManipulator;
 import com.navercorp.fixturemonkey.resolver.DefaultArbitraryBuilder;
-import com.navercorp.fixturemonkey.resolver.ManipulateOptions;
-import com.navercorp.fixturemonkey.resolver.NodeFilterManipulator;
-import com.navercorp.fixturemonkey.resolver.NodeManipulator;
-import com.navercorp.fixturemonkey.resolver.NodeNullityManipulator;
-import com.navercorp.fixturemonkey.resolver.NodeSetDecomposedValueManipulator;
-import com.navercorp.fixturemonkey.resolver.NodeSetJustManipulator;
-import com.navercorp.fixturemonkey.resolver.NodeSetLazyManipulator;
 
 @API(since = "0.4.10", status = Status.MAINTAINED)
 public final class MonkeyManipulatorFactory {
@@ -60,18 +50,13 @@ public final class MonkeyManipulatorFactory {
 
 	private final AtomicInteger sequence;
 	private final MonkeyExpressionFactory monkeyExpressionFactory;
-	private final ArbitraryTraverser traverser;
-	private final ManipulateOptions manipulateOptions;
 
 	public MonkeyManipulatorFactory(
 		AtomicInteger sequence,
-		ArbitraryTraverser traverser,
-		ManipulateOptions manipulateOptions
+		MonkeyExpressionFactory monkeyExpressionFactory
 	) {
 		this.sequence = sequence;
-		this.monkeyExpressionFactory = manipulateOptions.getDefaultMonkeyExpressionFactory();
-		this.traverser = traverser;
-		this.manipulateOptions = manipulateOptions;
+		this.monkeyExpressionFactory = monkeyExpressionFactory;
 	}
 
 	public ArbitraryManipulator newArbitraryManipulator(
@@ -138,8 +123,7 @@ public final class MonkeyManipulatorFactory {
 	public MonkeyManipulatorFactory copy() {
 		return new MonkeyManipulatorFactory(
 			new AtomicInteger(sequence.get()),
-			traverser,
-			manipulateOptions
+			monkeyExpressionFactory
 		);
 	}
 
@@ -201,38 +185,22 @@ public final class MonkeyManipulatorFactory {
 		} else if (value instanceof Arbitrary) {
 			return new NodeSetLazyManipulator<>(
 				sequence,
-				traverser,
-				manipulateOptions,
 				LazyArbitrary.lazy(() -> ((Arbitrary<?>)value).sample())
 			);
 		} else if (value instanceof DefaultArbitraryBuilder) {
 			return new NodeSetLazyManipulator<>(
 				sequence,
-				traverser,
-				manipulateOptions,
 				LazyArbitrary.lazy(() -> ((DefaultArbitraryBuilder<?>)value).sample())
 			);
 		} else if (value instanceof Supplier) {
 			return new NodeSetLazyManipulator<>(
 				sequence,
-				traverser,
-				manipulateOptions,
 				LazyArbitrary.lazy((Supplier<?>)value)
 			);
 		} else if (value instanceof LazyArbitrary) {
-			return new NodeSetLazyManipulator<>(
-				sequence,
-				traverser,
-				manipulateOptions,
-				(LazyArbitrary<?>)value
-			);
+			return new NodeSetLazyManipulator<>(sequence, (LazyArbitrary<?>)value);
 		} else {
-			return new NodeSetDecomposedValueManipulator<>(
-				sequence,
-				traverser,
-				manipulateOptions,
-				value
-			);
+			return new NodeSetDecomposedValueManipulator<>(sequence, value);
 		}
 	}
 }

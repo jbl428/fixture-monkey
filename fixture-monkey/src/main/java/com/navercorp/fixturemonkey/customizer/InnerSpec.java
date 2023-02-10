@@ -33,21 +33,21 @@ import javax.annotation.Nullable;
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
+import com.navercorp.fixturemonkey.api.customizer.NodeResolver;
 import com.navercorp.fixturemonkey.api.lazy.LazyArbitrary;
 import com.navercorp.fixturemonkey.customizer.InnerSpecState.ContainerInfoHolder;
 import com.navercorp.fixturemonkey.customizer.InnerSpecState.FilterHolder;
 import com.navercorp.fixturemonkey.customizer.InnerSpecState.ManipulatorHolderSet;
 import com.navercorp.fixturemonkey.customizer.InnerSpecState.NodeResolverObjectHolder;
-import com.navercorp.fixturemonkey.resolver.CompositeNodeResolver;
-import com.navercorp.fixturemonkey.resolver.ContainerElementPredicate;
-import com.navercorp.fixturemonkey.resolver.DefaultNodeResolver;
-import com.navercorp.fixturemonkey.resolver.IdentityNodeResolver;
-import com.navercorp.fixturemonkey.resolver.NodeAllElementPredicate;
-import com.navercorp.fixturemonkey.resolver.NodeElementPredicate;
-import com.navercorp.fixturemonkey.resolver.NodeKeyPredicate;
-import com.navercorp.fixturemonkey.resolver.NodeResolver;
-import com.navercorp.fixturemonkey.resolver.NodeValuePredicate;
-import com.navercorp.fixturemonkey.resolver.PropertyNameNodePredicate;
+import com.navercorp.fixturemonkey.expression.CompositeNodeResolver;
+import com.navercorp.fixturemonkey.expression.ContainerElementPredicate;
+import com.navercorp.fixturemonkey.expression.DefaultNodeResolver;
+import com.navercorp.fixturemonkey.expression.IdentityNodeResolver;
+import com.navercorp.fixturemonkey.expression.NodeAllElementPredicate;
+import com.navercorp.fixturemonkey.expression.NodeElementPredicate;
+import com.navercorp.fixturemonkey.expression.NodeKeyPredicate;
+import com.navercorp.fixturemonkey.expression.NodeValuePredicate;
+import com.navercorp.fixturemonkey.expression.PropertyNameNodePredicate;
 
 @SuppressWarnings("UnusedReturnValue")
 @API(since = "0.4.0", status = Status.MAINTAINED)

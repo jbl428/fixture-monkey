@@ -16,17 +16,15 @@
  * limitations under the License.
  */
 
-package com.navercorp.fixturemonkey.resolver;
-
-import java.util.List;
+package com.navercorp.fixturemonkey.api.expression;
 
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
-import com.navercorp.fixturemonkey.customizer.ArbitraryManipulator;
+import com.navercorp.fixturemonkey.api.customizer.NodeResolver;
 
 @API(since = "0.4.0", status = Status.MAINTAINED)
 @FunctionalInterface
-public interface ManipulatorOptimizer {
-	OptimizedManipulatorResult optimize(List<ArbitraryManipulator> manipulators);
+public interface MonkeyExpression {
+	NodeResolver toNodeResolver();
 }

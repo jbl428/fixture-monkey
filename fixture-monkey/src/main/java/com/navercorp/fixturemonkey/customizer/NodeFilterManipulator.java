@@ -16,17 +16,29 @@
  * limitations under the License.
  */
 
-package com.navercorp.fixturemonkey.resolver;
+package com.navercorp.fixturemonkey.customizer;
 
-import java.util.List;
+import java.util.function.Predicate;
 
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
-import com.navercorp.fixturemonkey.customizer.ArbitraryManipulator;
+import com.navercorp.fixturemonkey.api.customizer.NodeManipulator;
+import com.navercorp.fixturemonkey.api.tree.ArbitraryNode;
 
+@SuppressWarnings("rawtypes")
 @API(since = "0.4.0", status = Status.MAINTAINED)
-@FunctionalInterface
-public interface ManipulatorOptimizer {
-	OptimizedManipulatorResult optimize(List<ArbitraryManipulator> manipulators);
+final class NodeFilterManipulator implements NodeManipulator {
+	private final Class<?> filterType;
+	private final Predicate filter;
+
+	public NodeFilterManipulator(Class<?> filterType, Predicate filter) {
+		this.filterType = filterType;
+		this.filter = filter;
+	}
+
+	@Override
+	public void manipulate(ArbitraryNode arbitraryNode) {
+		arbitraryNode.filter(filterType, filter);
+	}
 }
