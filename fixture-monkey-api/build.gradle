@@ -5,6 +5,11 @@ plugins {
     id "com.github.spotbugs" version "4.7.6"
     id "jacoco"
     id "checkstyle"
+    id "me.champeau.mrjar" version "0.1.1"
+}
+
+multiRelease {
+    targetVersions(8, 17)
 }
 
 dependencies {
