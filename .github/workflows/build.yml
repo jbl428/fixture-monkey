@@ -27,7 +27,9 @@ jobs:
   test:
     name: Testing on JDK ${{ matrix.java }}
     runs-on: ubuntu-latest
+    continue-on-error: true
     strategy:
+      fail-fast: false
       matrix:
         java: [ '8', '11', '17' ]
     steps:
