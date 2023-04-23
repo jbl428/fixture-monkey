@@ -69,6 +69,7 @@ import com.navercorp.fixturemonkey.api.matcher.MatcherOperator;
 import com.navercorp.fixturemonkey.api.type.TypeReference;
 import com.navercorp.fixturemonkey.api.type.Types;
 import com.navercorp.fixturemonkey.resolver.DecomposableContainerValue;
+import com.navercorp.fixturemonkey.resolver.DefaultArbitraryBuilder;
 import com.navercorp.fixturemonkey.test.ExpressionGeneratorTestSpecs.StringValue;
 import com.navercorp.fixturemonkey.test.FixtureMonkeyOptionsAdditionalTestSpecs.AbstractNoneConcreteIntValue;
 import com.navercorp.fixturemonkey.test.FixtureMonkeyOptionsAdditionalTestSpecs.AbstractNoneConcreteStringValue;
@@ -775,6 +776,44 @@ class FixtureMonkeyOptionsTest {
 		String actual = sut.giveMeBuilder(String.class)
 			.set("$", expected)
 			.sample();
+
+		then(actual).isEqualTo(expected);
+	}
+
+	@SuppressWarnings("RedundantTypeArguments")
+	@Property
+	void registerCovariantOne() {
+		Integer expected = 123;
+		FixtureMonkey sut = FixtureMonkey.builder()
+			.register(Number.class, monkey -> monkey.<Integer>giveMeBuilder(expected))
+			.build();
+
+		Integer actual = sut.giveMeOne(Integer.class);
+
+		then(actual).isEqualTo(expected);
+	}
+
+	@Property
+	void registerExactType() {
+		int expected = 123;
+		FixtureMonkey sut = FixtureMonkey.builder()
+			.registerExactType(Integer.class, monkey -> monkey.giveMeBuilder(expected))
+			.build();
+
+		int actual = sut.giveMeOne(Integer.class);
+
+		then(actual).isEqualTo(expected);
+	}
+
+	@SuppressWarnings("RedundantTypeArguments")
+	@Property
+	void registerAssignableTypeCovariantOne() {
+		Integer expected = 123;
+		FixtureMonkey sut = FixtureMonkey.builder()
+			.registerAssignableType(Number.class, monkey -> monkey.<Integer>giveMeBuilder(expected))
+			.build();
+
+		Integer actual = sut.giveMeOne(Integer.class);
 
 		then(actual).isEqualTo(expected);
 	}

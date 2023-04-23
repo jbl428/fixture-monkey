@@ -331,9 +331,9 @@ public class FixtureMonkeyBuilder {
 		return this;
 	}
 
-	public FixtureMonkeyBuilder register(
-		Class<?> type,
-		Function<FixtureMonkey, ? extends ArbitraryBuilder<?>> registeredArbitraryBuilder
+	public <T> FixtureMonkeyBuilder register(
+		Class<T> type,
+		Function<FixtureMonkey, ArbitraryBuilder<? extends T>> registeredArbitraryBuilder
 	) {
 		manipulateOptionsBuilder.register(
 			MatcherOperator.assignableTypeMatchOperator(type, registeredArbitraryBuilder)
@@ -341,17 +341,17 @@ public class FixtureMonkeyBuilder {
 		return this;
 	}
 
-	public FixtureMonkeyBuilder registerExactType(
-		Class<?> type,
-		Function<FixtureMonkey, ? extends ArbitraryBuilder<?>> registeredArbitraryBuilder
+	public <T> FixtureMonkeyBuilder registerExactType(
+		Class<T> type,
+		Function<FixtureMonkey, ArbitraryBuilder<T>> registeredArbitraryBuilder
 	) {
 		manipulateOptionsBuilder.register(MatcherOperator.exactTypeMatchOperator(type, registeredArbitraryBuilder));
 		return this;
 	}
 
-	public FixtureMonkeyBuilder registerAssignableType(
-		Class<?> type,
-		Function<FixtureMonkey, ? extends ArbitraryBuilder<?>> registeredArbitraryBuilder
+	public <T> FixtureMonkeyBuilder registerAssignableType(
+		Class<T> type,
+		Function<FixtureMonkey, ArbitraryBuilder<? extends T>> registeredArbitraryBuilder
 	) {
 		manipulateOptionsBuilder.register(
 			MatcherOperator.assignableTypeMatchOperator(type, registeredArbitraryBuilder)
@@ -389,7 +389,9 @@ public class FixtureMonkeyBuilder {
 								throw new RuntimeException(e);
 							}
 						};
-					this.register(actualType, registerArbitraryBuilder);
+					manipulateOptionsBuilder.register(
+						MatcherOperator.assignableTypeMatchOperator(actualType, registerArbitraryBuilder)
+					);
 				} catch (InvocationTargetException
 						| InstantiationException
 						| IllegalAccessException
