@@ -121,6 +121,14 @@ public interface ArbitraryBuilder<T> {
 	ArbitraryBuilder<T> setInner(InnerSpec innerSpec);
 
 	/**
+	 * Apply one or more manipulations defined in {@link InnerSpec}.
+	 *
+	 * @param innerSpecConsumer a consumer function that takes an {@link InnerSpec} instance and configures
+	 * @return an {@link ArbitraryBuilder} applied the manipulators in {@link InnerSpec}
+	 */
+	ArbitraryBuilder<T> setInner(Consumer<InnerSpec> innerSpecConsumer);
+
+	/**
 	 * Set one or more properties referenced by expression to a result of {@link Supplier}.
 	 * The {@link Supplier} gets the result when manipulation is executed.
 	 * It might be used when to set the latest value or set unique id generated sequentially.

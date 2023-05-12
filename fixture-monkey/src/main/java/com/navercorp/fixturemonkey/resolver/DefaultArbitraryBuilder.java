@@ -171,6 +171,13 @@ public final class DefaultArbitraryBuilder<T> implements ArbitraryBuilder<T> {
 	}
 
 	@Override
+	public ArbitraryBuilder<T> setInner(Consumer<InnerSpec> innerSpecConsumer) {
+		InnerSpec innerSpec = new InnerSpec();
+		innerSpecConsumer.accept(innerSpec);
+		return setInner(innerSpec);
+	}
+
+	@Override
 	public ArbitraryBuilder<T> minSize(String expression, int minSize) {
 		return this.size(expression, minSize, minSize + DEFAULT_ELEMENT_MAX_SIZE);
 	}

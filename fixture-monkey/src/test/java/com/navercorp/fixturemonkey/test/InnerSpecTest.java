@@ -827,4 +827,16 @@ class InnerSpecTest {
 
 		then(actual).isNotNull();
 	}
+
+	@Property
+	void innerConsumer() {
+		String expected = "test";
+		String actual = SUT.giveMeBuilder(SimpleObject.class)
+			.setInner(i -> i.property("str", expected))
+			.build()
+			.sample()
+			.getStr();
+
+		then(actual).isEqualTo(expected);
+	}
 }
