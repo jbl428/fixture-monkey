@@ -38,7 +38,6 @@ import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
-import java.util.Optional;
 import java.util.stream.Collectors;
 
 import javax.annotation.Nullable;
@@ -163,7 +162,10 @@ public class Types {
 	public static AnnotatedType resolveWithTypeReferenceGenerics(AnnotatedType ownerType, Field field) {
 		Type fieldGenericsType = field.getGenericType();
 		AnnotatedType fieldAnnotatedType = field.getAnnotatedType();
-		if (!(fieldGenericsType instanceof TypeVariable || fieldGenericsType instanceof GenericArrayType)) {
+		if (!(fieldGenericsType instanceof TypeVariable
+			|| fieldGenericsType instanceof GenericArrayType
+			|| fieldGenericsType instanceof AnnotatedParameterizedType
+			|| fieldGenericsType instanceof ParameterizedType)) {
 			return fieldAnnotatedType;
 		}
 
@@ -652,22 +654,5 @@ public class Types {
 
 	public static List<Type> getGenericsTypes(ParameterizedType parameterizedType) {
 		return Arrays.asList(parameterizedType.getActualTypeArguments());
-	}
-
-	/**
-	 * @return index
-	 * @see sun.reflect.generics.reflectiveObjects.TypeVariableImpl#typeVarIndex()
-	 */
-	@SuppressWarnings("JavadocReference")
-	private static Optional<Integer> getTypeVariableIndex(TypeVariable<?> typeVariable) {
-		TypeVariable<?>[] tVars = typeVariable.getGenericDeclaration().getTypeParameters();
-		int index = -1;
-		for (TypeVariable<?> v : tVars) {
-			index++;
-			if (typeVariable.equals(v)) {
-				return Optional.of(index);
-			}
-		}
-		return Optional.empty();
 	}
 }
