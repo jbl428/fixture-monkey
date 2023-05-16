@@ -41,6 +41,8 @@ import java.util.Map;
 import java.util.Optional;
 import java.util.stream.Collectors;
 
+import javax.annotation.Nullable;
+
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
 
@@ -159,86 +161,72 @@ public class Types {
 	}
 
 	public static AnnotatedType resolveWithTypeReferenceGenerics(AnnotatedType ownerType, Field field) {
+		Type fieldGenericsType = field.getGenericType();
+		AnnotatedType fieldAnnotatedType = field.getAnnotatedType();
+		if (!(fieldGenericsType instanceof TypeVariable || fieldGenericsType instanceof GenericArrayType)) {
+			return fieldAnnotatedType;
+		}
+
+		AnnotatedType ownerTypeGenerics = resolvesOwnerTypeGenerics(ownerType, field);
+		if (ownerTypeGenerics != null) {
+			return ownerTypeGenerics;
+		}
+
+		Class<?> actualOwnerType = Types.getActualType(ownerType.getType());
+		AnnotatedType annotatedSuperClassType = actualOwnerType.getAnnotatedSuperclass();
+		if (annotatedSuperClassType != null
+			&& ParameterizedType.class.isAssignableFrom(annotatedSuperClassType.getType().getClass())) {
+			return resolvesOwnerTypeGenerics(
+				Types.getActualType(ownerType.getType()).getAnnotatedSuperclass(),
+				field
+			);
+		}
+
+		List<AnnotatedType> genericsTypes = Types.getGenericsTypes(ownerType);
+		if (genericsTypes.isEmpty()) {
+			return fieldAnnotatedType;
+		}
+
+		return new AnnotatedTypeVariable() {
+			@Override
+			public AnnotatedType[] getAnnotatedBounds() {
+				AnnotatedType[] annotatedTypes = new AnnotatedType[1];
+				annotatedTypes[0] = genericsTypes.get(0);
+				return annotatedTypes;
+			}
+
+			@SuppressWarnings("Since15")
+			public AnnotatedType getAnnotatedOwnerType() {
+				// TODO: Return annotatedType.getAnnotatedOwnerType() as soon as Java >= 9 is being used
+				return null;
+			}
+
+			@Override
+			public Type getType() {
+				return genericsTypes.get(0).getType();
+			}
+
+			@Override
+			public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
+				return fieldAnnotatedType.getAnnotation(annotationClass);
+			}
+
+			@Override
+			public Annotation[] getAnnotations() {
+				return fieldAnnotatedType.getAnnotations();
+			}
+
+			@Override
+			public Annotation[] getDeclaredAnnotations() {
+				return fieldAnnotatedType.getDeclaredAnnotations();
+			}
+		};
+	}
+
+	@Nullable
+	private static AnnotatedType resolvesOwnerTypeGenerics(AnnotatedType ownerType, Field field) {
 		if (!(ownerType instanceof AnnotatedParameterizedType)) {
-			AnnotatedType fieldAnnotatedType = field.getAnnotatedType();
-
-			Class<?> actualOwnerType = Types.getActualType(ownerType.getType());
-			AnnotatedType annotatedSuperClassType = actualOwnerType.getAnnotatedSuperclass();
-			if (annotatedSuperClassType != null) {
-				if (ParameterizedType.class.isAssignableFrom(annotatedSuperClassType.getType().getClass())) {
-					ParameterizedType parameterizedType = (ParameterizedType)annotatedSuperClassType.getType();
-					Type[] actualTypeArguments = parameterizedType.getActualTypeArguments();
-
-					Type genericType = field.getGenericType();
-					if (genericType instanceof TypeVariable) {
-						Type actualType = getTypeVariableIndex((TypeVariable<?>)genericType)
-							.map(index -> actualTypeArguments[index])
-							.orElse(Object.class);
-
-						return new AnnotatedType() {
-							@Override
-							public Type getType() {
-								return actualType;
-							}
-
-							@Override
-							public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
-								return fieldAnnotatedType.getAnnotation(annotationClass);
-							}
-
-							@Override
-							public Annotation[] getAnnotations() {
-								return fieldAnnotatedType.getAnnotations();
-							}
-
-							@Override
-							public Annotation[] getDeclaredAnnotations() {
-								return fieldAnnotatedType.getDeclaredAnnotations();
-							}
-						};
-					}
-				}
-			}
-
-			List<AnnotatedType> genericsTypes = Types.getGenericsTypes(ownerType);
-			if (genericsTypes.isEmpty()) {
-				return fieldAnnotatedType;
-			}
-
-			return new AnnotatedTypeVariable() {
-				@Override
-				public AnnotatedType[] getAnnotatedBounds() {
-					AnnotatedType[] annotatedTypes = new AnnotatedType[1];
-					annotatedTypes[0] = genericsTypes.get(0);
-					return annotatedTypes;
-				}
-
-				@SuppressWarnings("Since15")
-				public AnnotatedType getAnnotatedOwnerType() {
-					// TODO: Return annotatedType.getAnnotatedOwnerType() as soon as Java >= 9 is being used
-					return null;
-				}
-
-				@Override
-				public Type getType() {
-					return genericsTypes.get(0).getType();
-				}
-
-				@Override
-				public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
-					return fieldAnnotatedType.getAnnotation(annotationClass);
-				}
-
-				@Override
-				public Annotation[] getAnnotations() {
-					return fieldAnnotatedType.getAnnotations();
-				}
-
-				@Override
-				public Annotation[] getDeclaredAnnotations() {
-					return fieldAnnotatedType.getDeclaredAnnotations();
-				}
-			};
+			return null;
 		}
 
 		AnnotatedParameterizedType ownerAnnotatedParameterizedType = (AnnotatedParameterizedType)ownerType;
@@ -247,8 +235,8 @@ public class Types {
 			return field.getAnnotatedType();
 		}
 
-		ParameterizedType parameterizedType = (ParameterizedType)ownerAnnotatedParameterizedType.getType();
-		Class<?> ownerActualType = Types.getActualType(parameterizedType.getRawType());
+		ParameterizedType ownerParameterizedType = (ParameterizedType)ownerAnnotatedParameterizedType.getType();
+		Class<?> ownerActualType = Types.getActualType(ownerParameterizedType.getRawType());
 		List<Type> ownerTypeVariableParameters = Arrays.asList(ownerActualType.getTypeParameters());
 
 		Type fieldGenericsType = field.getGenericType();
@@ -258,89 +246,7 @@ public class Types {
 		}
 
 		if (fieldGenericsType instanceof GenericArrayType) {
-			GenericArrayType genericArrayType = (GenericArrayType)fieldGenericsType;
-			ParameterizedType genericComponentType = (ParameterizedType)genericArrayType.getGenericComponentType();
-
-			Type[] types = new Type[genericComponentType.getActualTypeArguments().length];
-			for (int i = 0; i < ownerGenericsTypes.length; i++) {
-				types[i] = ownerGenericsTypes[i].getType();
-			}
-
-			ParameterizedType genericComponentTypeWithGeneric = new ParameterizedType() {
-				@Override
-				public Type[] getActualTypeArguments() {
-					return types;
-				}
-
-				@Override
-				public Type getRawType() {
-					return genericComponentType.getRawType();
-				}
-
-				@Override
-				public Type getOwnerType() {
-					return genericComponentType.getOwnerType();
-				}
-			};
-
-			Type resolveType = (GenericArrayType)() -> genericComponentTypeWithGeneric;
-
-			return new AnnotatedArrayType() {
-				@Override
-				public AnnotatedType getAnnotatedGenericComponentType() {
-					return new AnnotatedType() {
-						@Override
-						public Type getType() {
-							return genericComponentTypeWithGeneric;
-						}
-
-						@Override
-						public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
-							return null;
-						}
-
-						@Override
-						public Annotation[] getAnnotations() {
-							return new Annotation[0];
-						}
-
-						@Override
-						public Annotation[] getDeclaredAnnotations() {
-							return new Annotation[0];
-						}
-					};
-				}
-
-				@SuppressWarnings("Since15")
-				public AnnotatedType getAnnotatedOwnerType() {
-					// TODO: Return annotatedType.getAnnotatedOwnerType() as soon as Java >= 9 is being used
-					return null;
-				}
-
-				@Override
-				public Type getType() {
-					return resolveType;
-				}
-
-				@Override
-				public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
-					return null;
-				}
-
-				@Override
-				public Annotation[] getAnnotations() {
-					return new Annotation[0];
-				}
-
-				@Override
-				public Annotation[] getDeclaredAnnotations() {
-					return new Annotation[0];
-				}
-			};
-		}
-
-		if (!(fieldGenericsType instanceof ParameterizedType)) {
-			return field.getAnnotatedType();
+			return resolveGenericsArrayType(field, ownerGenericsTypes);
 		}
 
 		AnnotatedParameterizedType fieldParameterizedType = (AnnotatedParameterizedType)field.getAnnotatedType();
@@ -418,6 +324,68 @@ public class Types {
 			@Override
 			public Annotation[] getDeclaredAnnotations() {
 				return fieldParameterizedType.getDeclaredAnnotations();
+			}
+		};
+	}
+
+	private static AnnotatedArrayType resolveGenericsArrayType(Field field, AnnotatedType[] ownerGenericsTypes) {
+		GenericArrayType genericArrayType = (GenericArrayType)field.getGenericType();
+		ParameterizedType genericComponentType = (ParameterizedType)genericArrayType.getGenericComponentType();
+
+		Type[] types = new Type[genericComponentType.getActualTypeArguments().length];
+		for (int i = 0; i < ownerGenericsTypes.length; i++) {
+			types[i] = ownerGenericsTypes[i].getType();
+		}
+
+		ParameterizedType genericComponentTypeWithGeneric = new ParameterizedType() {
+			@Override
+			public Type[] getActualTypeArguments() {
+				return types;
+			}
+
+			@Override
+			public Type getRawType() {
+				return genericComponentType.getRawType();
+			}
+
+			@Override
+			public Type getOwnerType() {
+				return genericComponentType.getOwnerType();
+			}
+		};
+
+		Type resolveType = (GenericArrayType)() -> genericComponentTypeWithGeneric;
+
+		return new AnnotatedArrayType() {
+			@Override
+			public AnnotatedType getAnnotatedGenericComponentType() {
+				return Types.generateAnnotatedTypeWithoutAnnotation(genericComponentTypeWithGeneric);
+			}
+
+			@SuppressWarnings("Since15")
+			public AnnotatedType getAnnotatedOwnerType() {
+				// TODO: Return annotatedType.getAnnotatedOwnerType() as soon as Java >= 9 is being used
+				return null;
+			}
+
+			@Override
+			public Type getType() {
+				return resolveType;
+			}
+
+			@Override
+			public <T extends Annotation> T getAnnotation(Class<T> annotationClass) {
+				return field.getAnnotation(annotationClass);
+			}
+
+			@Override
+			public Annotation[] getAnnotations() {
+				return field.getAnnotations();
+			}
+
+			@Override
+			public Annotation[] getDeclaredAnnotations() {
+				return field.getDeclaredAnnotations();
 			}
 		};
 	}
@@ -680,6 +648,10 @@ public class Types {
 			return false;
 		}
 		return toClass.isAssignableFrom(cls);
+	}
+
+	public static List<Type> getGenericsTypes(ParameterizedType parameterizedType) {
+		return Arrays.asList(parameterizedType.getActualTypeArguments());
 	}
 
 	/**
