@@ -18,6 +18,7 @@
 
 package com.navercorp.fixturemonkey.api.option;
 
+import java.lang.reflect.GenericArrayType;
 import java.lang.reflect.Modifier;
 import java.util.ArrayList;
 import java.util.Arrays;
@@ -360,7 +361,8 @@ public final class GenerateOptions {
 			MatcherOperator.assignableTypeMatchOperator(Map.class, MapContainerPropertyGenerator.INSTANCE),
 			MatcherOperator.assignableTypeMatchOperator(Entry.class, EntryContainerPropertyGenerator.INSTANCE),
 			new MatcherOperator<>(
-				property -> Types.getActualType(property.getType()).isArray(),
+				property -> Types.getActualType(property.getType()).isArray()
+					|| GenericArrayType.class.isAssignableFrom(property.getType().getClass()),
 				ArrayContainerPropertyGenerator.INSTANCE
 			),
 			new MatcherOperator<>(

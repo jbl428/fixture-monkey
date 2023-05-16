@@ -31,6 +31,7 @@ import org.junit.jupiter.api.RepeatedTest;
 import com.navercorp.fixturemonkey.FixtureMonkey;
 import com.navercorp.fixturemonkey.api.introspector.ConstructorPropertiesArbitraryIntrospector;
 import com.navercorp.fixturemonkey.api.type.TypeReference;
+import com.navercorp.fixturemonkey.tests.java.ImmutableGenericTypeSpecs.GenericArray;
 import com.navercorp.fixturemonkey.tests.java.ImmutableGenericTypeSpecs.GenericImplementationObject;
 import com.navercorp.fixturemonkey.tests.java.ImmutableGenericTypeSpecs.GenericObject;
 import com.navercorp.fixturemonkey.tests.java.ImmutableGenericTypeSpecs.TwoGenericImplementationObject;
@@ -325,5 +326,14 @@ class JavaTest {
 			.sample();
 
 		then(actual).isNotNull();
+	}
+
+	@RepeatedTest(TEST_COUNT)
+	void sampleGenericArrayType() {
+		GenericImplementationObject<String>[] values = SUT.giveMeOne(new TypeReference<GenericArray<String>>() {
+			})
+			.getValues();
+
+		then(values).isNotNull();
 	}
 }
