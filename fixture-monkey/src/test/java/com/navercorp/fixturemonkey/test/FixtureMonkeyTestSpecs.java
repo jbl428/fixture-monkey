@@ -19,6 +19,7 @@
 
 package com.navercorp.fixturemonkey.test;
 
+import java.beans.ConstructorProperties;
 import java.math.BigDecimal;
 import java.math.BigInteger;
 import java.time.Duration;
@@ -46,12 +47,11 @@ import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.stream.Stream;
 
+import javax.annotation.Nonnull;
 import javax.annotation.Nullable;
+import javax.validation.constraints.NotNull;
 
-import lombok.Data;
-import lombok.EqualsAndHashCode;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import com.navercorp.fixturemonkey.test.ExpressionGeneratorTestSpecs.StringValue;
 
@@ -294,5 +294,16 @@ class FixtureMonkeyTestSpecs {
 	@Getter
 	public static class ThirdNestedListStringObject {
 		List<NestedListStringObject> values;
+	}
+
+	@Data
+	public static class JetBrainAnnotationObject {
+		@org.jetbrains.annotations.NotNull
+		private String value;
+
+		@ConstructorProperties({"value"})
+		public JetBrainAnnotationObject(String value) {
+			this.value = value;
+		}
 	}
 }
