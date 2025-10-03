@@ -54,9 +54,8 @@ public final class CompositeArbitraryGenerator implements ArbitraryGenerator {
 		return generated;
 	}
 
-	@Nullable
 	@Override
-	public PropertyGenerator getRequiredPropertyGenerator(Property property) {
+	public @Nullable PropertyGenerator getRequiredPropertyGenerator(Property property) {
 		List<PropertyGenerator> propertyGenerators = new ArrayList<>();
 		for (ArbitraryGenerator arbitraryGenerator : arbitraryGenerators) {
 			PropertyGenerator propertyGenerator = arbitraryGenerator.getRequiredPropertyGenerator(property);

@@ -63,8 +63,7 @@ import com.navercorp.fixturemonkey.api.generator.ArbitraryGeneratorContext;
 @API(since = "0.4.0", status = Status.MAINTAINED)
 public final class JavaxValidationConstraintGenerator implements JavaConstraintGenerator {
 	@Override
-	@Nullable
-	public JavaStringConstraint generateStringConstraint(ArbitraryGeneratorContext context) {
+	public @Nullable JavaStringConstraint generateStringConstraint(ArbitraryGeneratorContext context) {
 		BigInteger min = null;
 		BigInteger max = null;
 		boolean digits = false;
@@ -117,8 +116,7 @@ public final class JavaxValidationConstraintGenerator implements JavaConstraintG
 	}
 
 	@Override
-	@Nullable
-	public JavaIntegerConstraint generateIntegerConstraint(ArbitraryGeneratorContext context) {
+	public @Nullable JavaIntegerConstraint generateIntegerConstraint(ArbitraryGeneratorContext context) {
 		BigInteger min = null;
 		BigInteger max = null;
 
@@ -249,8 +247,7 @@ public final class JavaxValidationConstraintGenerator implements JavaConstraintG
 	}
 
 	@Override
-	@Nullable
-	public JavaDecimalConstraint generateDecimalConstraint(ArbitraryGeneratorContext context) {
+	public @Nullable JavaDecimalConstraint generateDecimalConstraint(ArbitraryGeneratorContext context) {
 		BigDecimal min = null;
 		Boolean minInclusive = null;
 		BigDecimal max = null;
@@ -362,8 +359,7 @@ public final class JavaxValidationConstraintGenerator implements JavaConstraintG
 	}
 
 	@Override
-	@Nullable
-	public JavaContainerConstraint generateContainerConstraint(ArbitraryGeneratorContext context) {
+	public @Nullable JavaContainerConstraint generateContainerConstraint(ArbitraryGeneratorContext context) {
 		Integer minSize = null;
 		Integer maxSize = null;
 		boolean notEmpty = context.findAnnotation(NotEmpty.class).isPresent();
@@ -386,8 +382,7 @@ public final class JavaxValidationConstraintGenerator implements JavaConstraintG
 	}
 
 	@Override
-	@Nullable
-	public JavaDateTimeConstraint generateDateTimeConstraint(ArbitraryGeneratorContext context) {
+	public @Nullable JavaDateTimeConstraint generateDateTimeConstraint(ArbitraryGeneratorContext context) {
 		Supplier<LocalDateTime> min = null;
 		if (context.findAnnotation(Future.class).isPresent()) {
 			min = () -> LocalDateTime.now().plusSeconds(3);    // 3000 is buffer for future time

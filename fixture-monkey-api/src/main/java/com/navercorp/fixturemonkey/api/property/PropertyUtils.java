@@ -53,9 +53,8 @@ public abstract class PropertyUtils {
 				return annotatedType;
 			}
 
-			@Nullable
 			@Override
-			public String getName() {
+			public @Nullable String getName() {
 				return null;
 			}
 
@@ -64,9 +63,8 @@ public abstract class PropertyUtils {
 				return Arrays.asList(annotatedType.getAnnotations());
 			}
 
-			@Nullable
 			@Override
-			public Object getValue(Object instance) {
+			public @Nullable Object getValue(Object instance) {
 				throw new UnsupportedOperationException();
 			}
 

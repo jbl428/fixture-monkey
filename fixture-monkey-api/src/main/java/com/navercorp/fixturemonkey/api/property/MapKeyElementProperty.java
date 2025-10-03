@@ -82,8 +82,7 @@ public final class MapKeyElementProperty implements Property {
 	}
 
 	@Override
-	@Nullable
-	public String getName() {
+	public @Nullable String getName() {
 		return null;
 	}
 
@@ -97,9 +96,8 @@ public final class MapKeyElementProperty implements Property {
 		return false;
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		Class<?> actualType = Types.getActualType(instance.getClass());
 
 		if (Map.class.isAssignableFrom(actualType)) {

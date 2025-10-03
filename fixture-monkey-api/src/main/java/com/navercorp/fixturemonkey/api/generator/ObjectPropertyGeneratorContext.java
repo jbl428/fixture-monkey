@@ -29,10 +29,8 @@ import com.navercorp.fixturemonkey.api.property.TreeRootProperty;
 @API(since = "0.4.0", status = Status.MAINTAINED)
 public final class ObjectPropertyGeneratorContext {
 	private final Property property;
-	@Nullable
-	private final Integer elementIndex;
-	@Nullable
-	private final ArbitraryProperty ownerProperty;
+	private final @Nullable Integer elementIndex;
+	private final @Nullable ArbitraryProperty ownerProperty;
 	private final boolean container;
 	private final PropertyNameResolver propertyNameResolver;
 
@@ -54,13 +52,11 @@ public final class ObjectPropertyGeneratorContext {
 		return this.property;
 	}
 
-	@Nullable
-	public Integer getElementIndex() {
+	public @Nullable Integer getElementIndex() {
 		return this.elementIndex;
 	}
 
-	@Nullable
-	public ArbitraryProperty getOwnerProperty() {
+	public @Nullable ArbitraryProperty getOwnerProperty() {
 		return this.ownerProperty;
 	}
 

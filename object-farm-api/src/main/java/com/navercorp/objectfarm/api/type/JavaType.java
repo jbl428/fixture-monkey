@@ -32,8 +32,7 @@ public final class JavaType implements JvmType {
 	private final Class<?> rawType;
 	private final List<JavaType> typeVariables;
 	private final List<Annotation> annotations;
-	@Nullable
-	private final AnnotatedType annotatedType;
+	private final @Nullable AnnotatedType annotatedType;
 
 	public JavaType(Class<?> rawType) {
 		this(rawType, Collections.emptyList(), Collections.emptyList(), null);
@@ -90,8 +89,7 @@ public final class JavaType implements JvmType {
 	 */
 	@Deprecated
 	@Override
-	@Nullable
-	public AnnotatedType getAnnotatedType() {
+	public @Nullable AnnotatedType getAnnotatedType() {
 		return annotatedType;
 	}
 

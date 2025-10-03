@@ -68,9 +68,8 @@ class PropertyTest {
 				}
 			}
 
-			@Nullable
 			@Override
-			public Object getValue(Object instance) {
+			public @Nullable Object getValue(Object instance) {
 				return null;
 			}
 		};

@@ -37,8 +37,7 @@ public final class ElementPropertyGenerator implements PropertyGenerator {
 	private final Property originalContainerProperty;
 	private final ContainerPropertyGenerator containerPropertyGenerator;
 	private final ArbitraryContainerInfoGenerator containerInfoGenerator;
-	@Nullable
-	private ArbitraryContainerInfo containerInfo;
+	private @Nullable ArbitraryContainerInfo containerInfo;
 
 	/**
 	 * Constructs a new {@link ElementPropertyGenerator}.

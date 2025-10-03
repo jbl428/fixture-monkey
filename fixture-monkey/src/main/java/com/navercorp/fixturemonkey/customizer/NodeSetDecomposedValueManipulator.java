@@ -53,8 +53,7 @@ public final class NodeSetDecomposedValueManipulator<T> implements NodeManipulat
 	private final int sequence;
 	private final DecomposedContainerValueFactory decomposedContainerValueFactory;
 	private final List<MatcherOperator<ContainerPropertyGenerator>> containerPropertyGenerators;
-	@Nullable
-	private final T value;
+	private final @Nullable T value;
 
 	public NodeSetDecomposedValueManipulator(
 		int sequence,

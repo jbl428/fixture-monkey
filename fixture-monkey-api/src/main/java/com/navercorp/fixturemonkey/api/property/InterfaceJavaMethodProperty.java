@@ -88,9 +88,8 @@ public final class InterfaceJavaMethodProperty implements MethodProperty {
 			.map(annotationClass::cast);
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object obj) {
+	public @Nullable Object getValue(Object obj) {
 		throw new UnsupportedOperationException("Interface method should not be called.");
 	}
 

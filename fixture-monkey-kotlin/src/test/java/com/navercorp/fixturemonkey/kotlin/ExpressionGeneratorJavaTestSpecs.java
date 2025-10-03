@@ -34,13 +34,10 @@ public class ExpressionGeneratorJavaTestSpecs {
 		private final List<DogJava> dogs;
 		private final List<List<DogJava>> nestedDogs;
 		private final List<List<List<DogJava>>> nestedThriceDogs;
-		@Nullable
-		private final DogJava nullableDog;
-		@Nullable
-		private final List<DogJava> nullableDogs;
+		private final @Nullable DogJava nullableDog;
+		private final @Nullable List<DogJava> nullableDogs;
 		private final boolean married;
-		@Nullable
-		private final Boolean happy;
+		private final @Nullable Boolean happy;
 
 		public PersonJava(
 			String name,
@@ -88,13 +85,11 @@ public class ExpressionGeneratorJavaTestSpecs {
 		public void notGetter() {
 		}
 
-		@Nullable
-		public DogJava getNullableDog() {
+		public @Nullable DogJava getNullableDog() {
 			return nullableDog;
 		}
 
-		@Nullable
-		public List<DogJava> getNullableDogs() {
+		public @Nullable List<DogJava> getNullableDogs() {
 			return nullableDogs;
 		}
 
@@ -102,8 +97,7 @@ public class ExpressionGeneratorJavaTestSpecs {
 			return married;
 		}
 
-		@Nullable
-		public Boolean getHappy() {
+		public @Nullable Boolean getHappy() {
 			return happy;
 		}
 	}
@@ -112,8 +106,7 @@ public class ExpressionGeneratorJavaTestSpecs {
 	public static class DogJava {
 		private final String name;
 		private final List<Integer> loves;
-		@Nullable
-		private final String nullableName;
+		private final @Nullable String nullableName;
 
 		private final boolean cute;
 
@@ -132,8 +125,7 @@ public class ExpressionGeneratorJavaTestSpecs {
 			return loves;
 		}
 
-		@Nullable
-		public String getNullableName() {
+		public @Nullable String getNullableName() {
 			return nullableName;
 		}
 

@@ -32,8 +32,7 @@ import com.navercorp.fixturemonkey.api.type.TypeReference;
 public final class JavaConstructorInstantiator<T> implements ConstructorInstantiator<T> {
 	private final List<TypeReference<?>> inputTypes;
 	private final List<String> inputParameterNames;
-	@Nullable
-	private PropertyInstantiator<T> propertyInstantiator = null;
+	private @Nullable PropertyInstantiator<T> propertyInstantiator = null;
 
 	public JavaConstructorInstantiator() {
 		this.inputTypes = new ArrayList<>();
@@ -98,9 +97,8 @@ public final class JavaConstructorInstantiator<T> implements ConstructorInstanti
 		return inputParameterNames;
 	}
 
-	@Nullable
 	@Override
-	public PropertyInstantiator<T> getPropertyInstantiator() {
+	public @Nullable PropertyInstantiator<T> getPropertyInstantiator() {
 		return propertyInstantiator;
 	}
 }

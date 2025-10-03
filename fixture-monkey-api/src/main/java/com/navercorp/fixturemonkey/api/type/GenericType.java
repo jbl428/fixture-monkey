@@ -39,8 +39,7 @@ import org.jspecify.annotations.Nullable;
 public final class GenericType implements ParameterizedType {
 	private final Type containerType;
 	private final Type[] typeArguments;
-	@Nullable
-	private final Type ownerType;
+	private final @Nullable Type ownerType;
 
 	/**
 	 * Constructs a new {@code GenericType} instance with the specified container type, resolved type arguments,
@@ -67,8 +66,7 @@ public final class GenericType implements ParameterizedType {
 	}
 
 	@Override
-	@Nullable
-	public Type getOwnerType() {
+	public @Nullable Type getOwnerType() {
 		return this.ownerType;
 	}
 

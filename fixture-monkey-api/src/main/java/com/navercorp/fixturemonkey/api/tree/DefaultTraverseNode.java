@@ -54,17 +54,14 @@ import com.navercorp.fixturemonkey.api.property.TypeDefinition;
 public final class DefaultTraverseNode implements TraverseNode, TraverseNodeMetadata {
 	private final TreeRootProperty rootProperty;
 
-	@Nullable
-	private final Property resolvedParentProperty;
+	private final @Nullable Property resolvedParentProperty;
 	private TypeDefinition resolvedTypeDefinition;
 	private final TreeProperty treeProperty;
 	private final TraverseContext traverseContext;
 
-	@Nullable
-	private TraverseNode parent = null;
+	private @Nullable TraverseNode parent = null;
 	private List<TraverseNode> children;
-	@Nullable
-	private TypeDefinition expandedTypeDefinition = null;
+	private @Nullable TypeDefinition expandedTypeDefinition = null;
 
 	private double nullInject;
 	private final List<TreeNodeManipulator> containerInfoManipulators = new ArrayList<>();
@@ -99,8 +96,7 @@ public final class DefaultTraverseNode implements TraverseNode, TraverseNodeMeta
 		this.traverseContext = traverseContext;
 	}
 
-	@Nullable
-	public Property getResolvedParentProperty() {
+	public @Nullable Property getResolvedParentProperty() {
 		return resolvedParentProperty;
 	}
 
@@ -136,9 +132,8 @@ public final class DefaultTraverseNode implements TraverseNode, TraverseNodeMeta
 		return this.getTreeProperty().getObjectProperty().getProperty();
 	}
 
-	@Nullable
 	@Override
-	public NodeList getChildren() {
+	public @Nullable NodeList getChildren() {
 		if (children == null) {
 			return null;
 		}
@@ -170,8 +165,7 @@ public final class DefaultTraverseNode implements TraverseNode, TraverseNodeMeta
 		this.nullInject = nullInject;
 	}
 
-	@Nullable
-	public TraverseNode getParent() {
+	public @Nullable TraverseNode getParent() {
 		return parent;
 	}
 
@@ -193,9 +187,8 @@ public final class DefaultTraverseNode implements TraverseNode, TraverseNodeMeta
 		this.addContainerManipulator(treeNodeManipulator);
 	}
 
-	@Nullable
 	@Override
-	public TreeNodeManipulator getAppliedTreeNodeManipulator() {
+	public @Nullable TreeNodeManipulator getAppliedTreeNodeManipulator() {
 		if (containerInfoManipulators.isEmpty()) {
 			return null;
 		}
@@ -437,8 +430,7 @@ public final class DefaultTraverseNode implements TraverseNode, TraverseNodeMeta
 		return newObjectNode;
 	}
 
-	@Nullable
-	private static Integer resolveIndex(
+	private static @Nullable Integer resolveIndex(
 		@Nullable Property resolvedParentProperty,
 		@Nullable TreeProperty parentTreeProperty,
 		@Nullable Integer propertySequence,
@@ -494,8 +486,7 @@ public final class DefaultTraverseNode implements TraverseNode, TraverseNodeMeta
 		return children;
 	}
 
-	@Nullable
-	private static TreeNodeManipulator resolveAppliedContainerInfoManipulator(
+	private static @Nullable TreeNodeManipulator resolveAppliedContainerInfoManipulator(
 		boolean container,
 		List<TreeNodeManipulator> containerInfoManipulators,
 		List<ObjectProperty> objectProperties

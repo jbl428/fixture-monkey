@@ -49,9 +49,8 @@ public final class TypedArbitraryIntrospector implements ArbitraryIntrospector, 
 		return arbitraryIntrospector.match(property);
 	}
 
-	@Nullable
 	@Override
-	public PropertyGenerator getRequiredPropertyGenerator(Property property) {
+	public @Nullable PropertyGenerator getRequiredPropertyGenerator(Property property) {
 		if (arbitraryIntrospector.match(property)) {
 			return arbitraryIntrospector.getOperator().getRequiredPropertyGenerator(property);
 		}

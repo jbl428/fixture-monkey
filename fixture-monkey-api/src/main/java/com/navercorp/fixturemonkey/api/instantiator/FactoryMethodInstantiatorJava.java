@@ -33,8 +33,7 @@ public final class FactoryMethodInstantiatorJava<T> implements FactoryMethodInst
 	private final String factoryMethodName;
 	private final List<TypeReference<?>> types;
 	private final List<String> parameterNames;
-	@Nullable
-	private PropertyInstantiator<T> propertyInstantiator = null;
+	private @Nullable PropertyInstantiator<T> propertyInstantiator = null;
 
 	public FactoryMethodInstantiatorJava(String factoryMethodName) {
 		this.factoryMethodName = factoryMethodName;
@@ -106,9 +105,8 @@ public final class FactoryMethodInstantiatorJava<T> implements FactoryMethodInst
 		return parameterNames;
 	}
 
-	@Nullable
 	@Override
-	public PropertyInstantiator<T> getPropertyInstantiator() {
+	public @Nullable PropertyInstantiator<T> getPropertyInstantiator() {
 		return propertyInstantiator;
 	}
 }

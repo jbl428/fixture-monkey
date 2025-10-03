@@ -52,8 +52,7 @@ public class ElementProperty implements ContainerElementProperty {
 
 	private final JvmType elementType;
 
-	@Nullable
-	private final Integer index;
+	private final @Nullable Integer index;
 
 	private final int sequence;
 
@@ -96,8 +95,7 @@ public class ElementProperty implements ContainerElementProperty {
 		return this.elementType.getAnnotatedType();
 	}
 
-	@Nullable
-	public Integer getIndex() {
+	public @Nullable Integer getIndex() {
 		return this.index;
 	}
 
@@ -106,8 +104,7 @@ public class ElementProperty implements ContainerElementProperty {
 	}
 
 	@Override
-	@Nullable
-	public String getName() {
+	public @Nullable String getName() {
 		return null;
 	}
 
@@ -122,9 +119,8 @@ public class ElementProperty implements ContainerElementProperty {
 			.map(annotationClass::cast);
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		Class<?> actualType = Types.getActualType(instance.getClass());
 		if (isOptional(actualType)) {
 			return getOptionalValue(instance);
@@ -178,8 +174,7 @@ public class ElementProperty implements ContainerElementProperty {
 			|| OptionalDouble.class.isAssignableFrom(type);
 	}
 
-	@Nullable
-	private Object getOptionalValue(Object obj) {
+	private @Nullable Object getOptionalValue(Object obj) {
 		Class<?> actualType = Types.getActualType(obj.getClass());
 		if (Optional.class.isAssignableFrom(actualType)) {
 			return ((Optional<?>)obj).orElse(null);

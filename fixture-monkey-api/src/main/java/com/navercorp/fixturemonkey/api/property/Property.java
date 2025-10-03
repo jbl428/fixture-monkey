@@ -99,9 +99,8 @@ public interface Property {
 	 * {@code true} represents it is nullable.
 	 * {@code false} represents it is not nullable.
 	 */
-	@Nullable
 	@SuppressFBWarnings("NP_BOOLEAN_RETURN_NULL")
-	default Boolean isNullable() {
+	default @Nullable Boolean isNullable() {
 		return null;
 	}
 }

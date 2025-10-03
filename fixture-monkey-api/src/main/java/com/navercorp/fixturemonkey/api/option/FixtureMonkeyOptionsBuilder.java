@@ -126,16 +126,14 @@ public final class FixtureMonkeyOptionsBuilder {
 	private final List<UnaryOperator<JavaConstraintGenerator>> javaConstraintGeneratorCustomizers = new ArrayList<>();
 	private JavaTypeArbitraryGenerator javaTypeArbitraryGenerator = new JavaTypeArbitraryGenerator() {
 	};
-	@Nullable
-	private JavaArbitraryResolver javaArbitraryResolver = null;
+	private @Nullable JavaArbitraryResolver javaArbitraryResolver = null;
 	private JavaTimeTypeArbitraryGenerator javaTimeTypeArbitraryGenerator = new JavaTimeTypeArbitraryGenerator() {
 	};
-	@Nullable
-	private JavaTimeArbitraryResolver javaTimeArbitraryResolver = null;
-	@Nullable
-	private Function<JavaConstraintGenerator, JavaTypeArbitraryGeneratorSet> generateJavaTypeArbitrarySet = null;
-	@Nullable
-	private Function<JavaConstraintGenerator, JavaTimeArbitraryGeneratorSet> generateJavaTimeArbitrarySet = null;
+	private @Nullable JavaTimeArbitraryResolver javaTimeArbitraryResolver = null;
+	private @Nullable Function<JavaConstraintGenerator, JavaTypeArbitraryGeneratorSet> generateJavaTypeArbitrarySet =
+		null;
+	private @Nullable Function<JavaConstraintGenerator, JavaTimeArbitraryGeneratorSet> generateJavaTimeArbitrarySet =
+		null;
 	private InstantiatorProcessor instantiatorProcessor = new JavaInstantiatorProcessor();
 	private List<MatcherOperator<CandidateConcretePropertyResolver>> candidateConcretePropertyResolvers =
 		new ArrayList<>(FixtureMonkeyOptions.DEFAULT_CANDIDATE_CONCRETE_PROPERTY_RESOLVERS);

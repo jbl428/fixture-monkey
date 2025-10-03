@@ -116,9 +116,8 @@ public final class FieldProperty implements Property {
 		return Objects.hash(jvmType);
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		try {
 			this.field.setAccessible(true);
 			return this.field.get(instance);

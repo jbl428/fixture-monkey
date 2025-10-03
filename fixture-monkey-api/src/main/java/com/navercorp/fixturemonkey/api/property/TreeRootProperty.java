@@ -63,9 +63,8 @@ public interface TreeRootProperty extends Property {
 		return Collections.emptyList();
 	}
 
-	@Nullable
 	@Override
-	default Object getValue(Object instance) {
+	default @Nullable Object getValue(Object instance) {
 		if (Types.getActualType(this.getType()) == instance.getClass()) {
 			return instance;
 		}

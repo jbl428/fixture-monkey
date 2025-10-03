@@ -104,9 +104,8 @@ public final class PropertyDescriptorProperty implements Property {
 			.map(annotationClass::cast);
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		try {
 			return this.propertyDescriptor.getReadMethod().invoke(instance);
 		} catch (InvocationTargetException | IllegalAccessException ex) {

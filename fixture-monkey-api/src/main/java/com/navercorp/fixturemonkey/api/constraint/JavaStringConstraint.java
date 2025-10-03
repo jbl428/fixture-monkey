@@ -26,11 +26,9 @@ import org.jspecify.annotations.Nullable;
 
 @API(since = "0.6.8", status = Status.MAINTAINED)
 public final class JavaStringConstraint {
-	@Nullable
-	private final BigInteger minSize;
+	private final @Nullable BigInteger minSize;
 
-	@Nullable
-	private final BigInteger maxSize;
+	private final @Nullable BigInteger maxSize;
 
 	private final boolean digits;
 
@@ -38,8 +36,7 @@ public final class JavaStringConstraint {
 
 	private final boolean notBlank;
 
-	@Nullable
-	private final PatternConstraint pattern;
+	private final @Nullable PatternConstraint pattern;
 
 	private final boolean email;
 
@@ -61,13 +58,11 @@ public final class JavaStringConstraint {
 		this.email = email;
 	}
 
-	@Nullable
-	public BigInteger getMinSize() {
+	public @Nullable BigInteger getMinSize() {
 		return this.minSize;
 	}
 
-	@Nullable
-	public BigInteger getMaxSize() {
+	public @Nullable BigInteger getMaxSize() {
 		return this.maxSize;
 	}
 
@@ -83,8 +78,7 @@ public final class JavaStringConstraint {
 		return this.notBlank;
 	}
 
-	@Nullable
-	public PatternConstraint getPattern() {
+	public @Nullable PatternConstraint getPattern() {
 		return pattern;
 	}
 

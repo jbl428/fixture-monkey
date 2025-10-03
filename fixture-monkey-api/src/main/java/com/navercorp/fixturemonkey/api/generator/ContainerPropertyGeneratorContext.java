@@ -28,10 +28,8 @@ import com.navercorp.fixturemonkey.api.property.TreeRootProperty;
 @API(since = "0.4.0", status = Status.MAINTAINED)
 public final class ContainerPropertyGeneratorContext {
 	private final Property property;
-	@Nullable
-	private final ArbitraryContainerInfo containerInfo;
-	@Nullable
-	private final ArbitraryContainerInfoGenerator containerInfoGenerator;
+	private final @Nullable ArbitraryContainerInfo containerInfo;
+	private final @Nullable ArbitraryContainerInfoGenerator containerInfoGenerator;
 
 	public ContainerPropertyGeneratorContext(
 		Property property,
@@ -47,9 +45,8 @@ public final class ContainerPropertyGeneratorContext {
 		return property;
 	}
 
-	@Nullable
 	@Deprecated
-	public Integer getElementIndex() {
+	public @Nullable Integer getElementIndex() {
 		return null;
 	}
 

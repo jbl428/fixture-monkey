@@ -30,32 +30,27 @@ import com.navercorp.fixturemonkey.api.generator.ArbitraryGeneratorContext;
 public interface JavaConstraintGenerator {
 	JavaConstraintGenerator DEFAULT_JAVA_CONSTRAINT_GENERATOR = new JavaConstraintGenerator() {
 		@Override
-		@Nullable
-		public JavaStringConstraint generateStringConstraint(ArbitraryGeneratorContext context) {
+		public @Nullable JavaStringConstraint generateStringConstraint(ArbitraryGeneratorContext context) {
 			return null;
 		}
 
 		@Override
-		@Nullable
-		public JavaIntegerConstraint generateIntegerConstraint(ArbitraryGeneratorContext context) {
+		public @Nullable JavaIntegerConstraint generateIntegerConstraint(ArbitraryGeneratorContext context) {
 			return null;
 		}
 
 		@Override
-		@Nullable
-		public JavaDecimalConstraint generateDecimalConstraint(ArbitraryGeneratorContext context) {
+		public @Nullable JavaDecimalConstraint generateDecimalConstraint(ArbitraryGeneratorContext context) {
 			return null;
 		}
 
 		@Override
-		@Nullable
-		public JavaContainerConstraint generateContainerConstraint(ArbitraryGeneratorContext context) {
+		public @Nullable JavaContainerConstraint generateContainerConstraint(ArbitraryGeneratorContext context) {
 			return null;
 		}
 
 		@Override
-		@Nullable
-		public JavaDateTimeConstraint generateDateTimeConstraint(ArbitraryGeneratorContext context) {
+		public @Nullable JavaDateTimeConstraint generateDateTimeConstraint(ArbitraryGeneratorContext context) {
 			return null;
 		}
 	};

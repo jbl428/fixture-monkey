@@ -83,15 +83,13 @@ public final class CompositeProperty implements Property {
 		return annotation;
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		return this.getPriorityProperty().getValue(instance);
 	}
 
 	@Override
-	@Nullable
-	public Boolean isNullable() {
+	public @Nullable Boolean isNullable() {
 		return this.primaryProperty.isNullable();
 	}
 

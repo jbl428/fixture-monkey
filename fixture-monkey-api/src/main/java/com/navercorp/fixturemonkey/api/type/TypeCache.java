@@ -129,8 +129,7 @@ public abstract class TypeCache {
 			);
 	}
 
-	@Nullable
-	public static Entry<Constructor<?>, String[]> getParameterNamesByConstructor(Class<?> clazz) {
+	public static @Nullable Entry<Constructor<?>, String[]> getParameterNamesByConstructor(Class<?> clazz) {
 		return PARAMETER_NAMES_BY_PRIMARY_CONSTRUCTOR.computeIfAbsent(clazz,
 			type -> {
 				List<Constructor<?>> possibilities = new ArrayList<>();

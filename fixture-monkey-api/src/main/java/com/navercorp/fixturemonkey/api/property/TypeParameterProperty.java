@@ -61,9 +61,8 @@ public final class TypeParameterProperty implements Property {
 	 *
 	 * @return null
 	 */
-	@Nullable
 	@Override
-	public String getName() {
+	public @Nullable String getName() {
 		return null;
 	}
 
@@ -72,9 +71,8 @@ public final class TypeParameterProperty implements Property {
 		return this.type.getAnnotations();
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		throw new UnsupportedOperationException("type parameter property does not support getValue");
 	}
 
