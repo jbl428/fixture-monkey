@@ -81,8 +81,7 @@ public class CustomArbitraryIntrospector implements ArbitraryIntrospector {
  * 특정 속성에 대한 속성 생성을 제어하려면 이 메서드를 오버라이드하세요
  */
 @Override
-@Nullable
-public PropertyGenerator getRequiredPropertyGenerator(Property property) {
+public @Nullable PropertyGenerator getRequiredPropertyGenerator(Property property) {
     // 이 속성이 특별한 처리가 필요한지 확인
     if ("nestedObject".equals(property.getName())) {
         // 특정 필드만 포함하는 생성기 생성
