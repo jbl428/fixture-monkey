@@ -26,10 +26,9 @@ import static com.navercorp.fixturemonkey.api.type.Types.nullSafe;
 import java.util.List;
 import java.util.function.Function;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.arbitrary.CombinableArbitrary;
 import com.navercorp.fixturemonkey.api.container.DecomposableJavaContainer;
@@ -54,8 +53,7 @@ public final class NodeSetDecomposedValueManipulator<T> implements NodeManipulat
 	private final int sequence;
 	private final DecomposedContainerValueFactory decomposedContainerValueFactory;
 	private final List<MatcherOperator<ContainerPropertyGenerator>> containerPropertyGenerators;
-	@Nullable
-	private final T value;
+	private final @Nullable T value;
 
 	public NodeSetDecomposedValueManipulator(
 		int sequence,

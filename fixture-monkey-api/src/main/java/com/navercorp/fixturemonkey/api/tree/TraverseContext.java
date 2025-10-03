@@ -25,10 +25,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.container.ConcurrentLruCache;
 import com.navercorp.fixturemonkey.api.generator.ArbitraryContainerInfoGenerator;
@@ -107,8 +106,7 @@ public final class TraverseContext {
 		this.defaultNullInjectGenerator = defaultNullInjectGenerator;
 	}
 
-	@Nullable
-	public TreeProperty getRootTreeProperty() {
+	public @Nullable TreeProperty getRootTreeProperty() {
 		return treeProperties.get(0);
 	}
 
@@ -183,8 +181,7 @@ public final class TraverseContext {
 		}
 	}
 
-	@Nullable
-	public TreeProperty getLastTreeProperty() {
+	public @Nullable TreeProperty getLastTreeProperty() {
 		if (this.treeProperties.isEmpty()) {
 			return null;
 		}
@@ -232,8 +229,7 @@ public final class TraverseContext {
 			.orElse(this.defaultObjectPropertyGenerator);
 	}
 
-	@Nullable
-	public ContainerPropertyGenerator getContainerPropertyGenerator(Property property) {
+	public @Nullable ContainerPropertyGenerator getContainerPropertyGenerator(Property property) {
 		return containerPropertyGenerators.stream()
 			.filter(it -> it.match(property))
 			.map(MatcherOperator::getOperator)
@@ -300,8 +296,7 @@ public final class TraverseContext {
 		);
 	}
 
-	@Nullable
-	private static CandidateConcretePropertyResolver getCandidateConcretePropertyResolver(
+	private static @Nullable CandidateConcretePropertyResolver getCandidateConcretePropertyResolver(
 		Property property,
 		List<MatcherOperator<CandidateConcretePropertyResolver>> candidateConcretePropertyResolvers
 	) {

@@ -33,10 +33,9 @@ import java.util.concurrent.ConcurrentHashMap;
 import java.util.function.Function;
 import java.util.function.Predicate;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 @API(since = "0.5.4", status = Status.INTERNAL)
 public abstract class Reflections {
@@ -73,8 +72,7 @@ public abstract class Reflections {
 		}
 	}
 
-	@Nullable
-	public static Method findMethod(Class<?> clazz, String methodName, Class<?>... parameterTypes) {
+	public static @Nullable Method findMethod(Class<?> clazz, String methodName, Class<?>... parameterTypes) {
 		Class<?> searchType = clazz;
 
 		while (Object.class != searchType && searchType != null) {

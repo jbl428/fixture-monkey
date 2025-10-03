@@ -23,10 +23,9 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.Objects;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 /**
  * Represents a parameterized type with a container type, type arguments, and an optional owner type.
@@ -40,8 +39,7 @@ import org.apiguardian.api.API.Status;
 public final class GenericType implements ParameterizedType {
 	private final Type containerType;
 	private final Type[] typeArguments;
-	@Nullable
-	private final Type ownerType;
+	private final @Nullable Type ownerType;
 
 	/**
 	 * Constructs a new {@code GenericType} instance with the specified container type, resolved type arguments,
@@ -68,8 +66,7 @@ public final class GenericType implements ParameterizedType {
 	}
 
 	@Override
-	@Nullable
-	public Type getOwnerType() {
+	public @Nullable Type getOwnerType() {
 		return this.ownerType;
 	}
 

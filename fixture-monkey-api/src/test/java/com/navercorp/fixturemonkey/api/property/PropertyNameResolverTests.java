@@ -23,7 +23,7 @@ import java.lang.annotation.Annotation;
 import java.lang.reflect.AnnotatedType;
 import java.util.List;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import net.jqwik.api.ForAll;
 import net.jqwik.api.Property;
@@ -59,9 +59,8 @@ class PropertyNameResolverTests {
 				return null;
 			}
 
-			@Nullable
 			@Override
-			public Object getValue(Object instance) {
+			public @Nullable Object getValue(Object instance) {
 				return null;
 			}
 		};

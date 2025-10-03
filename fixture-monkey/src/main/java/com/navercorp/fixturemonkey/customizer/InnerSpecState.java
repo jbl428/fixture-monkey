@@ -21,22 +21,18 @@ package com.navercorp.fixturemonkey.customizer;
 import java.util.List;
 import java.util.function.Predicate;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.expression.DefaultDeclarativeExpression;
 import com.navercorp.fixturemonkey.tree.NextNodePredicate;
 
 @API(since = "0.5.0", status = Status.MAINTAINED)
 final class InnerSpecState {
-	@Nullable
-	private NodeSetManipulatorSnapshot nodeSetManipulatorSnapshot;
-	@Nullable
-	private ContainerInfoSnapshot containerInfoSnapshot;
-	@Nullable
-	private FilterSnapshot filterSnapshot;
+	private @Nullable NodeSetManipulatorSnapshot nodeSetManipulatorSnapshot;
+	private @Nullable ContainerInfoSnapshot containerInfoSnapshot;
+	private @Nullable FilterSnapshot filterSnapshot;
 
 	void setNodeManipulatorSnapshot(@Nullable NodeSetManipulatorSnapshot nodeSetManipulatorSnapshot) {
 		this.nodeSetManipulatorSnapshot = nodeSetManipulatorSnapshot;

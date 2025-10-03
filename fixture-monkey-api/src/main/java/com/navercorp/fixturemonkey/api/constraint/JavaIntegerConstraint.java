@@ -20,18 +20,15 @@ package com.navercorp.fixturemonkey.api.constraint;
 
 import java.math.BigInteger;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 @API(since = "0.6.8", status = Status.MAINTAINED)
 public final class JavaIntegerConstraint {
-	@Nullable
-	private final BigInteger min;
+	private final @Nullable BigInteger min;
 
-	@Nullable
-	private final BigInteger max;
+	private final @Nullable BigInteger max;
 
 	public JavaIntegerConstraint(
 		@Nullable BigInteger min,
@@ -41,13 +38,11 @@ public final class JavaIntegerConstraint {
 		this.max = max;
 	}
 
-	@Nullable
-	public BigInteger getMin() {
+	public @Nullable BigInteger getMin() {
 		return min;
 	}
 
-	@Nullable
-	public BigInteger getMax() {
+	public @Nullable BigInteger getMax() {
 		return max;
 	}
 }

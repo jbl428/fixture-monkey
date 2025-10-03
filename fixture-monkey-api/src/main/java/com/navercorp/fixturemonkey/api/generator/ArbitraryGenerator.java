@@ -18,10 +18,9 @@
 
 package com.navercorp.fixturemonkey.api.generator;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.arbitrary.CombinableArbitrary;
 import com.navercorp.fixturemonkey.api.property.Property;
@@ -50,8 +49,7 @@ public interface ArbitraryGenerator {
 	 * @return A {@link PropertyGenerator} that is associated with the specified property,
 	 *         or {@code null} if no such generator is required or available.
 	 */
-	@Nullable
-	default PropertyGenerator getRequiredPropertyGenerator(Property property) {
+	default @Nullable PropertyGenerator getRequiredPropertyGenerator(Property property) {
 		return null;
 	}
 }

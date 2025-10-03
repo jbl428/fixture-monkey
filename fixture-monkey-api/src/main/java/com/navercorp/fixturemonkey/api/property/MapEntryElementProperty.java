@@ -28,10 +28,9 @@ import java.util.List;
 import java.util.Map;
 import java.util.Objects;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.type.Types;
 import com.navercorp.objectfarm.api.type.JvmType;
@@ -80,8 +79,7 @@ public final class MapEntryElementProperty implements Property {
 	}
 
 	@Override
-	@Nullable
-	public String getName() {
+	public @Nullable String getName() {
 		return null;
 	}
 
@@ -90,9 +88,8 @@ public final class MapEntryElementProperty implements Property {
 		return Collections.emptyList();
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		if (instance == null) {
 			return null;
 		}
@@ -127,8 +124,7 @@ public final class MapEntryElementProperty implements Property {
 	public static final class MapEntryElementType {
 		private Object key;
 
-		@Nullable
-		private Object value;
+		private @Nullable Object value;
 
 		public Object getKey() {
 			return this.key;
@@ -138,8 +134,7 @@ public final class MapEntryElementProperty implements Property {
 			this.key = key;
 		}
 
-		@Nullable
-		public Object getValue() {
+		public @Nullable Object getValue() {
 			return this.value;
 		}
 

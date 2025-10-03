@@ -77,8 +77,7 @@ Sometimes you need to customize how child properties are discovered and generate
 ```java
 // Override this method to control property generation for specific properties
 @Override
-@Nullable
-public PropertyGenerator getRequiredPropertyGenerator(Property property) {
+public @Nullable PropertyGenerator getRequiredPropertyGenerator(Property property) {
     // Check if this property needs special handling
     if ("nestedObject".equals(property.getName())) {
         // Create a generator that only includes specific fields

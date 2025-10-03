@@ -20,10 +20,9 @@ package com.navercorp.fixturemonkey.jackson.property;
 
 import java.lang.annotation.Annotation;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.fasterxml.jackson.annotation.JsonSubTypes;
 import com.fasterxml.jackson.annotation.JsonSubTypes.Type;
@@ -34,8 +33,7 @@ import com.navercorp.fixturemonkey.api.type.Types;
 
 @API(since = "0.4.2", status = Status.INTERNAL)
 public abstract class JacksonAnnotations {
-	@Nullable
-	public static <T extends Annotation> T getJacksonAnnotation(Property property, Class<T> annotationClass) {
+	public static @Nullable <T extends Annotation> T getJacksonAnnotation(Property property, Class<T> annotationClass) {
 		T propertyAnnotation = property.getAnnotation(annotationClass).orElse(null);
 		if (propertyAnnotation != null) {
 			return propertyAnnotation;

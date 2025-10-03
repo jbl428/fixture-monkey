@@ -27,10 +27,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.Objects;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.type.Types;
 
@@ -84,8 +83,7 @@ public final class MapValueElementProperty implements Property {
 	}
 
 	@Override
-	@Nullable
-	public String getName() {
+	public @Nullable String getName() {
 		return null;
 	}
 
@@ -94,9 +92,8 @@ public final class MapValueElementProperty implements Property {
 		return this.valueProperty.getAnnotations();
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		Class<?> actualType = Types.getActualType(instance.getClass());
 
 		if (Map.class.isAssignableFrom(actualType)) {

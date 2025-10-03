@@ -30,21 +30,18 @@ import java.util.Optional;
 import java.util.function.Function;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 @API(since = "0.4.2", status = Status.MAINTAINED)
 public final class ConstructorProperty implements Property {
 	private final Property parameterProperty;
 	private final Constructor<?> constructor;
-	@Nullable
-	private final Property fieldProperty;
+	private final @Nullable Property fieldProperty;
 	private final List<Annotation> annotations;
 	private final Map<Class<? extends Annotation>, Annotation> annotationsMap;
-	@Nullable
-	private final Boolean nullable;
+	private final @Nullable Boolean nullable;
 
 	/**
 	 * It is deprecated.
@@ -93,8 +90,7 @@ public final class ConstructorProperty implements Property {
 		return constructor;
 	}
 
-	@Nullable
-	public Property getFieldProperty() {
+	public @Nullable Property getFieldProperty() {
 		return fieldProperty;
 	}
 
@@ -114,9 +110,8 @@ public final class ConstructorProperty implements Property {
 			.map(annotationClass::cast);
 	}
 
-	@Nullable
 	@Override
-	public Boolean isNullable() {
+	public @Nullable Boolean isNullable() {
 		if (nullable != null) {
 			return nullable;
 		}
@@ -144,9 +139,8 @@ public final class ConstructorProperty implements Property {
 		return Objects.hash(parameterProperty, constructor, fieldProperty, annotations);
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		if (fieldProperty != null) {
 			return fieldProperty.getValue(instance);
 		} else {

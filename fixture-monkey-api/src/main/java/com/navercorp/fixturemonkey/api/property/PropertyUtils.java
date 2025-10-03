@@ -24,10 +24,9 @@ import java.lang.reflect.Type;
 import java.util.Arrays;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.type.TypeReference;
 import com.navercorp.fixturemonkey.api.type.Types;
@@ -54,9 +53,8 @@ public abstract class PropertyUtils {
 				return annotatedType;
 			}
 
-			@Nullable
 			@Override
-			public String getName() {
+			public @Nullable String getName() {
 				return null;
 			}
 
@@ -65,9 +63,8 @@ public abstract class PropertyUtils {
 				return Arrays.asList(annotatedType.getAnnotations());
 			}
 
-			@Nullable
 			@Override
-			public Object getValue(Object instance) {
+			public @Nullable Object getValue(Object instance) {
 				throw new UnsupportedOperationException();
 			}
 

@@ -20,10 +20,9 @@ package com.navercorp.fixturemonkey.api.property;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.generator.ArbitraryContainerInfo;
 import com.navercorp.fixturemonkey.api.generator.ArbitraryContainerInfoGenerator;
@@ -38,8 +37,7 @@ public final class ElementPropertyGenerator implements PropertyGenerator {
 	private final Property originalContainerProperty;
 	private final ContainerPropertyGenerator containerPropertyGenerator;
 	private final ArbitraryContainerInfoGenerator containerInfoGenerator;
-	@Nullable
-	private ArbitraryContainerInfo containerInfo;
+	private @Nullable ArbitraryContainerInfo containerInfo;
 
 	/**
 	 * Constructs a new {@link ElementPropertyGenerator}.

@@ -18,10 +18,9 @@
 
 package com.navercorp.fixturemonkey.api.introspector;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.generator.ArbitraryGeneratorContext;
 import com.navercorp.fixturemonkey.api.matcher.Matcher;
@@ -50,9 +49,8 @@ public final class TypedArbitraryIntrospector implements ArbitraryIntrospector, 
 		return arbitraryIntrospector.match(property);
 	}
 
-	@Nullable
 	@Override
-	public PropertyGenerator getRequiredPropertyGenerator(Property property) {
+	public @Nullable PropertyGenerator getRequiredPropertyGenerator(Property property) {
 		if (arbitraryIntrospector.match(property)) {
 			return arbitraryIntrospector.getOperator().getRequiredPropertyGenerator(property);
 		}

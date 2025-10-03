@@ -28,10 +28,9 @@ import java.util.Map;
 import java.util.Objects;
 import java.util.stream.Collectors;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.ArbitraryBuilder;
 import com.navercorp.fixturemonkey.FixtureMonkey;
@@ -71,16 +70,13 @@ public final class ArbitraryBuilderContext {
 	private final Map<Class<?>, ArbitraryIntrospector> arbitraryIntrospectorsByType;
 	private final MonkeyContext monkeyContext;
 
-	@Nullable
-	private Boolean optionValidOnly;
+	private @Nullable Boolean optionValidOnly;
 
-	@Nullable
-	private Boolean customizedValidOnly;
+	private @Nullable Boolean customizedValidOnly;
 
-	@Nullable
-	private FixedState fixedState = null;
-	@Nullable
-	private CombinableArbitrary<?> fixedCombinableArbitrary;
+	private @Nullable FixedState fixedState = null;
+
+	private @Nullable CombinableArbitrary<?> fixedCombinableArbitrary;
 
 	private ArbitraryBuilderContext(
 		List<ArbitraryManipulator> manipulators,
@@ -221,8 +217,7 @@ public final class ArbitraryBuilderContext {
 		this.fixedCombinableArbitrary = fixedCombinableArbitrary;
 	}
 
-	@Nullable
-	public CombinableArbitrary<?> getFixedCombinableArbitrary() {
+	public @Nullable CombinableArbitrary<?> getFixedCombinableArbitrary() {
 		return fixedCombinableArbitrary;
 	}
 

@@ -37,10 +37,9 @@ import java.util.Map;
 import java.util.Map.Entry;
 import java.util.concurrent.ConcurrentHashMap;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -130,8 +129,7 @@ public abstract class TypeCache {
 			);
 	}
 
-	@Nullable
-	public static Entry<Constructor<?>, String[]> getParameterNamesByConstructor(Class<?> clazz) {
+	public static @Nullable Entry<Constructor<?>, String[]> getParameterNamesByConstructor(Class<?> clazz) {
 		return PARAMETER_NAMES_BY_PRIMARY_CONSTRUCTOR.computeIfAbsent(clazz,
 			type -> {
 				List<Constructor<?>> possibilities = new ArrayList<>();

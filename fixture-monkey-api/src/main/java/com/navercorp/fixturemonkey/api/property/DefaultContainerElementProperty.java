@@ -30,10 +30,9 @@ import java.util.OptionalInt;
 import java.util.OptionalLong;
 import java.util.function.Supplier;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.type.Types;
 
@@ -42,8 +41,7 @@ public final class DefaultContainerElementProperty extends ElementProperty imple
 	private final Property containerProperty;
 	private final Property elementProperty;
 	private final int sequence;
-	@Nullable
-	private final Integer index;
+	private @Nullable final Integer index;
 
 	public DefaultContainerElementProperty(
 		Property containerProperty,
@@ -73,9 +71,8 @@ public final class DefaultContainerElementProperty extends ElementProperty imple
 		return this.sequence;
 	}
 
-	@Nullable
 	@Override
-	public Integer getIndex() {
+	public @Nullable Integer getIndex() {
 		return this.index;
 	}
 
@@ -89,9 +86,8 @@ public final class DefaultContainerElementProperty extends ElementProperty imple
 		return this.elementProperty.getAnnotatedType();
 	}
 
-	@Nullable
 	@Override
-	public String getName() {
+	public @Nullable String getName() {
 		return null;
 	}
 
@@ -100,9 +96,8 @@ public final class DefaultContainerElementProperty extends ElementProperty imple
 		return this.elementProperty.getAnnotations();
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		// TODO: should split as a implementation of ContainerElementProperty
 		Class<?> actualType = Types.getActualType(instance.getClass());
 		if (isOptional(actualType)) {
@@ -139,8 +134,7 @@ public final class DefaultContainerElementProperty extends ElementProperty imple
 			|| OptionalDouble.class.isAssignableFrom(type);
 	}
 
-	@Nullable
-	private Object getOptionalValue(Object obj) {
+	private @Nullable Object getOptionalValue(Object obj) {
 		Class<?> actualType = Types.getActualType(obj.getClass());
 		if (Optional.class.isAssignableFrom(actualType)) {
 			return ((Optional<?>)obj).orElse(null);

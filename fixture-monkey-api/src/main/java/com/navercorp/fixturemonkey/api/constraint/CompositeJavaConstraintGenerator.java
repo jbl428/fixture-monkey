@@ -20,10 +20,9 @@ package com.navercorp.fixturemonkey.api.constraint;
 
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.generator.ArbitraryGeneratorContext;
 
@@ -35,9 +34,8 @@ public final class CompositeJavaConstraintGenerator implements JavaConstraintGen
 		this.javaConstraintGenerators = javaConstraintGenerators;
 	}
 
-	@Nullable
 	@Override
-	public JavaStringConstraint generateStringConstraint(ArbitraryGeneratorContext context) {
+	public @Nullable JavaStringConstraint generateStringConstraint(ArbitraryGeneratorContext context) {
 		for (JavaConstraintGenerator javaConstraintGenerator : javaConstraintGenerators) {
 			JavaStringConstraint constraint = javaConstraintGenerator.generateStringConstraint(context);
 			if (constraint != null) {
@@ -47,9 +45,8 @@ public final class CompositeJavaConstraintGenerator implements JavaConstraintGen
 		return null;
 	}
 
-	@Nullable
 	@Override
-	public JavaIntegerConstraint generateIntegerConstraint(ArbitraryGeneratorContext context) {
+	public @Nullable JavaIntegerConstraint generateIntegerConstraint(ArbitraryGeneratorContext context) {
 		for (JavaConstraintGenerator javaConstraintGenerator : javaConstraintGenerators) {
 			JavaIntegerConstraint constraint = javaConstraintGenerator.generateIntegerConstraint(context);
 			if (constraint != null) {
@@ -59,9 +56,8 @@ public final class CompositeJavaConstraintGenerator implements JavaConstraintGen
 		return null;
 	}
 
-	@Nullable
 	@Override
-	public JavaDecimalConstraint generateDecimalConstraint(ArbitraryGeneratorContext context) {
+	public @Nullable JavaDecimalConstraint generateDecimalConstraint(ArbitraryGeneratorContext context) {
 		for (JavaConstraintGenerator javaConstraintGenerator : javaConstraintGenerators) {
 			JavaDecimalConstraint constraint = javaConstraintGenerator.generateDecimalConstraint(context);
 			if (constraint != null) {
@@ -71,9 +67,8 @@ public final class CompositeJavaConstraintGenerator implements JavaConstraintGen
 		return null;
 	}
 
-	@Nullable
 	@Override
-	public JavaContainerConstraint generateContainerConstraint(ArbitraryGeneratorContext context) {
+	public @Nullable JavaContainerConstraint generateContainerConstraint(ArbitraryGeneratorContext context) {
 		for (JavaConstraintGenerator javaConstraintGenerator : javaConstraintGenerators) {
 			JavaContainerConstraint constraint = javaConstraintGenerator.generateContainerConstraint(context);
 			if (constraint != null) {
@@ -83,9 +78,8 @@ public final class CompositeJavaConstraintGenerator implements JavaConstraintGen
 		return null;
 	}
 
-	@Nullable
 	@Override
-	public JavaDateTimeConstraint generateDateTimeConstraint(ArbitraryGeneratorContext context) {
+	public @Nullable JavaDateTimeConstraint generateDateTimeConstraint(ArbitraryGeneratorContext context) {
 		for (JavaConstraintGenerator javaConstraintGenerator : javaConstraintGenerators) {
 			JavaDateTimeConstraint constraint = javaConstraintGenerator.generateDateTimeConstraint(context);
 			if (constraint != null) {

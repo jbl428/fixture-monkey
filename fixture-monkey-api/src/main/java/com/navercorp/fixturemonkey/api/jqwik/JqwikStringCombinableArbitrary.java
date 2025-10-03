@@ -21,10 +21,9 @@ package com.navercorp.fixturemonkey.api.jqwik;
 import java.util.List;
 import java.util.function.Predicate;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import net.jqwik.api.Arbitraries;
 import net.jqwik.api.Arbitrary;
@@ -35,10 +34,8 @@ import com.navercorp.fixturemonkey.api.arbitrary.StringCombinableArbitrary;
 @API(since = "1.1.12", status = Status.EXPERIMENTAL)
 public final class JqwikStringCombinableArbitrary implements StringCombinableArbitrary {
 	private final Arbitrary<Character> characterArbitrary;
-	@Nullable
-	private Integer minSize = null;
-	@Nullable
-	private Integer maxSize = null;
+	private @Nullable Integer minSize = null;
+	private @Nullable Integer maxSize = null;
 
 	public JqwikStringCombinableArbitrary() {
 		this.characterArbitrary = Arbitraries.chars();

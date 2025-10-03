@@ -28,10 +28,9 @@ import java.util.List;
 import java.util.Objects;
 import java.util.Optional;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 @API(since = "0.4.0", status = Status.MAINTAINED)
 public final class CompositeProperty implements Property {
@@ -84,15 +83,13 @@ public final class CompositeProperty implements Property {
 		return annotation;
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		return this.getPriorityProperty().getValue(instance);
 	}
 
 	@Override
-	@Nullable
-	public Boolean isNullable() {
+	public @Nullable Boolean isNullable() {
 		return this.primaryProperty.isNullable();
 	}
 

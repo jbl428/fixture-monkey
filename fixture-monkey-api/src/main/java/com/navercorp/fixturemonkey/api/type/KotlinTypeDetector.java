@@ -20,18 +20,16 @@ package com.navercorp.fixturemonkey.api.type;
 
 import java.lang.annotation.Annotation;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.container.ConcurrentLruCache;
 
 @SuppressWarnings("unchecked")
 @API(since = "1.0.0", status = Status.INTERNAL)
 public abstract class KotlinTypeDetector {
-	@Nullable
-	private static final Class<? extends Annotation> kotlinMetadata;
+	private static final @Nullable Class<? extends Annotation> kotlinMetadata;
 	private static final ConcurrentLruCache<Class<?>, Boolean> IS_KOTLIN_TYPE = new ConcurrentLruCache<>(2048);
 
 	static {

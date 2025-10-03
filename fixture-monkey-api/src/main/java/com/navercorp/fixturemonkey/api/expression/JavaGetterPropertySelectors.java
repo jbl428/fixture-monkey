@@ -24,7 +24,7 @@ import java.lang.reflect.Field;
 import java.lang.reflect.Method;
 import java.util.Map;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.property.CompositeProperty;
 import com.navercorp.fixturemonkey.api.property.FieldProperty;
@@ -89,8 +89,7 @@ abstract class JavaGetterPropertySelectors {
 
 	}
 
-	@Nullable
-	private static Property resolveFieldProperty(Class<?> targetClass, String fieldName) {
+	private static @Nullable Property resolveFieldProperty(Class<?> targetClass, String fieldName) {
 		Map<String, Field> fieldsByName = TypeCache.getFieldsByName(targetClass);
 		if (!fieldsByName.containsKey(fieldName)) {
 			return null;
@@ -98,8 +97,7 @@ abstract class JavaGetterPropertySelectors {
 		return new FieldProperty(fieldsByName.get(fieldName));
 	}
 
-	@Nullable
-	private static Property resolvePropertyDescriptorProperty(Class<?> targetClass, String fieldName) {
+	private static @Nullable Property resolvePropertyDescriptorProperty(Class<?> targetClass, String fieldName) {
 		Map<String, PropertyDescriptor> propertyDescriptorsByPropertyName =
 			TypeCache.getPropertyDescriptorsByPropertyName(targetClass);
 

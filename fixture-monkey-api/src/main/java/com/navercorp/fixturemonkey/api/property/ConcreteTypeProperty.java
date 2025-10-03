@@ -26,10 +26,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 
@@ -74,9 +73,8 @@ public final class ConcreteTypeProperty implements Property {
 		return jvmType.getAnnotatedType();
 	}
 
-	@Nullable
 	@Override
-	public String getName() {
+	public @Nullable String getName() {
 		return abstractTypeProperty.getName();
 	}
 
@@ -87,9 +85,8 @@ public final class ConcreteTypeProperty implements Property {
 		return Collections.unmodifiableList(concatAnnotations);
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		return abstractTypeProperty.getValue(instance);
 	}
 

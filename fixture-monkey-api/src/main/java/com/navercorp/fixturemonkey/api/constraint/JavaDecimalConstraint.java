@@ -20,27 +20,21 @@ package com.navercorp.fixturemonkey.api.constraint;
 
 import java.math.BigDecimal;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 @API(since = "0.6.8", status = Status.MAINTAINED)
 public final class JavaDecimalConstraint {
-	@Nullable
-	private final BigDecimal min;
+	private final @Nullable BigDecimal min;
 
-	@Nullable
-	private final Boolean minInclusive;
+	private final @Nullable Boolean minInclusive;
 
-	@Nullable
-	private final BigDecimal max;
+	private final @Nullable BigDecimal max;
 
-	@Nullable
-	private final Boolean maxInclusive;
+	private final @Nullable Boolean maxInclusive;
 
-	@Nullable
-	private final Integer scale;
+	private final @Nullable Integer scale;
 
 	public JavaDecimalConstraint(
 		@Nullable BigDecimal min,
@@ -56,28 +50,23 @@ public final class JavaDecimalConstraint {
 		this.scale = scale;
 	}
 
-	@Nullable
-	public BigDecimal getMin() {
+	public @Nullable BigDecimal getMin() {
 		return min;
 	}
 
-	@Nullable
-	public Boolean getMinInclusive() {
+	public @Nullable Boolean getMinInclusive() {
 		return minInclusive;
 	}
 
-	@Nullable
-	public BigDecimal getMax() {
+	public @Nullable BigDecimal getMax() {
 		return max;
 	}
 
-	@Nullable
-	public Boolean getMaxInclusive() {
+	public @Nullable Boolean getMaxInclusive() {
 		return maxInclusive;
 	}
 
-	@Nullable
-	public Integer getScale() {
+	public @Nullable Integer getScale() {
 		return scale;
 	}
 }

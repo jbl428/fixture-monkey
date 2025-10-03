@@ -25,10 +25,9 @@ import java.util.Collections;
 import java.util.List;
 import java.util.Objects;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.type.Types;
 import com.navercorp.objectfarm.api.type.JvmType;
@@ -62,9 +61,8 @@ public final class TypeParameterProperty implements Property {
 	 *
 	 * @return null
 	 */
-	@Nullable
 	@Override
-	public String getName() {
+	public @Nullable String getName() {
 		return null;
 	}
 
@@ -73,9 +71,8 @@ public final class TypeParameterProperty implements Property {
 		return this.type.getAnnotations();
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		throw new UnsupportedOperationException("type parameter property does not support getValue");
 	}
 

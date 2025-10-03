@@ -22,10 +22,9 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.function.Consumer;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.type.TypeReference;
 
@@ -33,8 +32,7 @@ import com.navercorp.fixturemonkey.api.type.TypeReference;
 public final class JavaConstructorInstantiator<T> implements ConstructorInstantiator<T> {
 	private final List<TypeReference<?>> inputTypes;
 	private final List<String> inputParameterNames;
-	@Nullable
-	private PropertyInstantiator<T> propertyInstantiator = null;
+	private @Nullable PropertyInstantiator<T> propertyInstantiator = null;
 
 	public JavaConstructorInstantiator() {
 		this.inputTypes = new ArrayList<>();
@@ -99,9 +97,8 @@ public final class JavaConstructorInstantiator<T> implements ConstructorInstanti
 		return inputParameterNames;
 	}
 
-	@Nullable
 	@Override
-	public PropertyInstantiator<T> getPropertyInstantiator() {
+	public @Nullable PropertyInstantiator<T> getPropertyInstantiator() {
 		return propertyInstantiator;
 	}
 }

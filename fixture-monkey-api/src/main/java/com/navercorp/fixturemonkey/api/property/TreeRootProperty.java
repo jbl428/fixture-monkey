@@ -24,10 +24,9 @@ import java.lang.reflect.Type;
 import java.util.Collections;
 import java.util.List;
 
-import javax.annotation.Nullable;
-
 import org.apiguardian.api.API;
 import org.apiguardian.api.API.Status;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.type.Types;
 
@@ -64,9 +63,8 @@ public interface TreeRootProperty extends Property {
 		return Collections.emptyList();
 	}
 
-	@Nullable
 	@Override
-	default Object getValue(Object instance) {
+	default @Nullable Object getValue(Object instance) {
 		if (Types.getActualType(this.getType()) == instance.getClass()) {
 			return instance;
 		}

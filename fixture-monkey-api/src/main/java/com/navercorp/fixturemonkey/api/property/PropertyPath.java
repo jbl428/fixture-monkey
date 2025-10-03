@@ -2,7 +2,7 @@ package com.navercorp.fixturemonkey.api.property;
 
 import java.util.Objects;
 
-import javax.annotation.Nullable;
+import org.jspecify.annotations.Nullable;
 
 import com.navercorp.fixturemonkey.api.lazy.LazyArbitrary;
 
@@ -12,8 +12,7 @@ import com.navercorp.fixturemonkey.api.lazy.LazyArbitrary;
  */
 public final class PropertyPath implements Comparable<PropertyPath> {
 	private final Property property;
-	@Nullable
-	private final PropertyPath parentPropertyPath;
+	private final @Nullable PropertyPath parentPropertyPath;
 	private final int depth;
 
 	private final LazyArbitrary<String> expression = LazyArbitrary.lazy(this::initExpression);
