@@ -223,8 +223,7 @@ public final class FixtureMonkeyOptions {
 		return propertyGenerators.getList();
 	}
 
-	@Nullable
-	public PropertyGenerator getOptionalPropertyGenerator(Property property) {
+	public @Nullable PropertyGenerator getOptionalPropertyGenerator(Property property) {
 		return this.getPropertyGenerators().stream()
 			.filter(it -> it.match(property))
 			.map(MatcherOperator::getOperator)
@@ -256,8 +255,7 @@ public final class FixtureMonkeyOptions {
 		return containerPropertyGenerators.getList();
 	}
 
-	@Nullable
-	public ContainerPropertyGenerator getContainerPropertyGenerator(Property property) {
+	public @Nullable ContainerPropertyGenerator getContainerPropertyGenerator(Property property) {
 		return containerPropertyGenerators.getListByProperty(property)
 			.stream()
 			.map(MatcherOperator::getOperator)
@@ -355,9 +353,8 @@ public final class FixtureMonkeyOptions {
 	/**
 	 * Use {@link #getCandidateConcretePropertyResolvers()} instead.
 	 */
-	@Nullable
 	@Deprecated
-	public CandidateConcretePropertyResolver getCandidateConcretePropertyResolver(Property property) {
+	public @Nullable CandidateConcretePropertyResolver getCandidateConcretePropertyResolver(Property property) {
 		List<CandidateConcretePropertyResolver> candidateConcretePropertyResolverList =
 			this.candidateConcretePropertyResolvers.getListByProperty(property)
 				.stream()

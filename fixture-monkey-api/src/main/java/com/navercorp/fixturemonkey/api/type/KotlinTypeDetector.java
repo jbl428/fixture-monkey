@@ -29,8 +29,7 @@ import com.navercorp.fixturemonkey.api.container.ConcurrentLruCache;
 @SuppressWarnings("unchecked")
 @API(since = "1.0.0", status = Status.INTERNAL)
 public abstract class KotlinTypeDetector {
-	@Nullable
-	private static final Class<? extends Annotation> kotlinMetadata;
+	private static final @Nullable Class<? extends Annotation> kotlinMetadata;
 	private static final ConcurrentLruCache<Class<?>, Boolean> IS_KOTLIN_TYPE = new ConcurrentLruCache<>(2048);
 
 	static {

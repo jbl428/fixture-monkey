@@ -60,8 +60,7 @@ public interface Property {
 	 *
 	 * @return name of the property
 	 */
-	@Nullable
-	String getName();
+	@Nullable String getName();
 
 	/**
 	 * Returns the annotations annotated in the property.
@@ -90,8 +89,7 @@ public interface Property {
 	 * @param instance an instance which has the property
 	 * @return a value of the property in {@code instance}
 	 */
-	@Nullable
-	Object getValue(Object instance);
+	@Nullable Object getValue(Object instance);
 
 	/**
 	 * Returns whether this property is nullable or not.

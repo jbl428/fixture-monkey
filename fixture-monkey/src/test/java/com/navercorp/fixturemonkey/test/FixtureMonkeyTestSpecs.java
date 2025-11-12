@@ -163,8 +163,7 @@ class FixtureMonkeyTestSpecs {
 
 	@Data
 	public static class NullableObject {
-		@Nullable
-		List<String> values;
+		@Nullable List<String> values;
 	}
 
 	public interface Interface {

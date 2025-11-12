@@ -34,8 +34,7 @@ import com.navercorp.fixturemonkey.api.property.TypeDefinition;
 public interface TraverseNodeMetadata {
 	TreeRootProperty getRootProperty();
 
-	@Nullable
-	Property getResolvedParentProperty();
+	@Nullable Property getResolvedParentProperty();
 
 	TypeDefinition getResolvedTypeDefinition();
 
@@ -51,8 +50,7 @@ public interface TraverseNodeMetadata {
 
 	List<TreeNodeManipulator> getTreeNodeManipulators();
 
-	@Nullable
-	TreeNodeManipulator getAppliedTreeNodeManipulator();
+	@Nullable TreeNodeManipulator getAppliedTreeNodeManipulator();
 
 	void addTreeNodeManipulator(TreeNodeManipulator treeNodeManipulator);
 

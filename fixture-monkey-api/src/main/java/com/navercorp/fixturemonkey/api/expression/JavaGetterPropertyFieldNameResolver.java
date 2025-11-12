@@ -26,8 +26,7 @@ public final class JavaGetterPropertyFieldNameResolver {
 	private static final String GET_PREFIX = "get";
 	private static final String IS_PREFIX = "is";
 
-	@Nullable
-	public String resolveFieldName(Class<?> targetClass, String methodName) {
+	public @Nullable String resolveFieldName(Class<?> targetClass, String methodName) {
 
 		if (isValidField(targetClass, methodName)) {
 			// class could be using property-style getters (e.g. java record)
@@ -41,8 +40,7 @@ public final class JavaGetterPropertyFieldNameResolver {
 		return null;
 	}
 
-	@Nullable
-	private static String stripPrefixPropertyName(Class<?> targetClass, String methodName, int prefixLength) {
+	private static @Nullable String stripPrefixPropertyName(Class<?> targetClass, String methodName, int prefixLength) {
 		char[] ch = methodName.toCharArray();
 		ch[prefixLength] = Character.toLowerCase(ch[prefixLength]);
 		String fieldName = new String(ch, prefixLength, ch.length - prefixLength);

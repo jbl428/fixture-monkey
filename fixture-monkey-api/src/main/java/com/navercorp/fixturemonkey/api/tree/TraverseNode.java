@@ -88,14 +88,12 @@ public interface TraverseNode {
 	 *
 	 * @return the parent node of this node or null if it is root node.
 	 */
-	@Nullable
-	TraverseNode getParent();
+	@Nullable TraverseNode getParent();
 
 	/**
 	 * retrieves the child nodes of this node. Use {@link NodeList} to prevent generic type casting compile error.
 	 *
 	 * @return the child nodes of this node or null if not called {@link #expand()}
 	 */
-	@Nullable
-	NodeList getChildren();
+	@Nullable NodeList getChildren();
 }

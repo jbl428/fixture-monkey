@@ -57,6 +57,5 @@ public interface ContainerElementProperty extends Property {
 	 *
 	 * @return the index of the element, may be null if the container has no ordering.
 	 */
-	@Nullable
-	Integer getIndex();
+	@Nullable Integer getIndex();
 }

@@ -67,8 +67,7 @@ public abstract class Reflections {
 		}
 	}
 
-	@Nullable
-	public static Method findMethod(Class<?> clazz, String methodName, Class<?>... parameterTypes) {
+	public static @Nullable Method findMethod(Class<?> clazz, String methodName, Class<?>... parameterTypes) {
 		Class<?> searchType = clazz;
 
 		while (Object.class != searchType && searchType != null) {

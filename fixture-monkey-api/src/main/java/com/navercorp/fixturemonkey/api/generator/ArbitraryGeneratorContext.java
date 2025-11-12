@@ -49,8 +49,7 @@ public final class ArbitraryGeneratorContext implements Traceable {
 	private final Property resolvedProperty;
 	private final ArbitraryProperty property;
 	private final List<ArbitraryProperty> children;
-	@Nullable
-	private final ArbitraryGeneratorContext ownerContext;
+	private final @Nullable ArbitraryGeneratorContext ownerContext;
 	private final BiFunction<ArbitraryGeneratorContext, ArbitraryProperty, CombinableArbitrary<?>> resolveArbitrary;
 	private final MonkeyGeneratorContext monkeyGeneratorContext;
 	private final LazyArbitrary<PropertyPath> lazyPropertyPath;
@@ -135,8 +134,7 @@ public final class ArbitraryGeneratorContext implements Traceable {
 		return new ArrayList<>(arbitraryListByArbitraryProperty.getValue().values());
 	}
 
-	@Nullable
-	public ArbitraryGeneratorContext getOwnerContext() {
+	public @Nullable ArbitraryGeneratorContext getOwnerContext() {
 		return this.ownerContext;
 	}
 

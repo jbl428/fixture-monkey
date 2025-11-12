@@ -232,8 +232,7 @@ public abstract class Types {
 		return newAnnotatedTypeVariable(currentAnnotatedType, genericsTypes);
 	}
 
-	@Nullable
-	private static AnnotatedType resolvesParentTypeGenerics(
+	private static @Nullable AnnotatedType resolvesParentTypeGenerics(
 		AnnotatedType parentAnnotatedType,
 		AnnotatedType currentAnnotatedType
 	) {

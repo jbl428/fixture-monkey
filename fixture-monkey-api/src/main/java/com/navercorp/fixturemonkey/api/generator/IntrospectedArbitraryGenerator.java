@@ -73,9 +73,8 @@ public final class IntrospectedArbitraryGenerator implements ArbitraryGenerator 
 		return NOT_GENERATED;
 	}
 
-	@Nullable
 	@Override
-	public PropertyGenerator getRequiredPropertyGenerator(Property property) {
+	public @Nullable PropertyGenerator getRequiredPropertyGenerator(Property property) {
 		return arbitraryIntrospector.getRequiredPropertyGenerator(property);
 	}
 }

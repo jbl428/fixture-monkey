@@ -83,8 +83,7 @@ public final class MapValueElementProperty implements Property {
 	}
 
 	@Override
-	@Nullable
-	public String getName() {
+	public @Nullable String getName() {
 		return null;
 	}
 
@@ -93,9 +92,8 @@ public final class MapValueElementProperty implements Property {
 		return this.valueProperty.getAnnotations();
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		Class<?> actualType = Types.getActualType(instance.getClass());
 
 		if (Map.class.isAssignableFrom(actualType)) {

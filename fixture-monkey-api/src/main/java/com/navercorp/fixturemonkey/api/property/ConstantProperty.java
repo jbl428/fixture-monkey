@@ -33,10 +33,8 @@ import com.navercorp.objectfarm.api.type.JvmType;
 @API(since = "1.0.17", status = Status.MAINTAINED)
 public final class ConstantProperty implements Property {
 	private final JvmType jvmType;
-	@Nullable
-	private final String propertyName;
-	@Nullable
-	private final Object constantValue;
+	private final @Nullable String propertyName;
+	private final @Nullable Object constantValue;
 
 	public ConstantProperty(
 		AnnotatedType annotatedType,
@@ -59,9 +57,8 @@ public final class ConstantProperty implements Property {
 		return this.jvmType.getAnnotatedType();
 	}
 
-	@Nullable
 	@Override
-	public String getName() {
+	public @Nullable String getName() {
 		return propertyName;
 	}
 
@@ -70,9 +67,8 @@ public final class ConstantProperty implements Property {
 		return this.jvmType.getAnnotations();
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		return constantValue;
 	}
 }

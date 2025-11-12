@@ -26,8 +26,7 @@ public final class JavaGetterPropertyFieldNameResolver {
 	private static final String GET_PREFIX = "get";
 	private static final String IS_PREFIX = "is";
 
-	@Nullable
-	public String resolveFieldName(Class<?> targetClass, String methodName) {
+	public @Nullable String resolveFieldName(Class<?> targetClass, String methodName) {
 		if (targetClass.isRecord()) {
 			if (isValidField(targetClass, methodName)) {
 				return methodName;

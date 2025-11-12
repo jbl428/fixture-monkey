@@ -34,8 +34,7 @@ public final class ObjectProperty {
 
 	private final PropertyNameResolver propertyNameResolver;
 
-	@Nullable
-	private final Integer elementIndex;
+	private final @Nullable Integer elementIndex;
 
 	public ObjectProperty(
 		Property property,
@@ -59,8 +58,7 @@ public final class ObjectProperty {
 		return this.getPropertyNameResolver().resolve(this.property);
 	}
 
-	@Nullable
-	public Integer getElementIndex() {
+	public @Nullable Integer getElementIndex() {
 		return this.elementIndex;
 	}
 

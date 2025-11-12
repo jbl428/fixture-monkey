@@ -57,9 +57,8 @@ public final class MatchArbitraryGenerator implements ArbitraryGenerator {
 		return CombinableArbitrary.NOT_GENERATED;
 	}
 
-	@Nullable
 	@Override
-	public PropertyGenerator getRequiredPropertyGenerator(Property property) {
+	public @Nullable PropertyGenerator getRequiredPropertyGenerator(Property property) {
 		List<PropertyGenerator> propertyGenerators = new ArrayList<>();
 		for (ArbitraryGenerator arbitraryGenerator : arbitraryGenerators) {
 			PropertyGenerator propertyGenerator = arbitraryGenerator.getRequiredPropertyGenerator(property);

@@ -78,9 +78,8 @@ public final class SingleElementProperty extends ElementProperty implements Cont
 		return this.elementProperty.getAnnotatedType();
 	}
 
-	@Nullable
 	@Override
-	public String getName() {
+	public @Nullable String getName() {
 		return null;
 	}
 
@@ -89,9 +88,8 @@ public final class SingleElementProperty extends ElementProperty implements Cont
 		return this.containerProperty.getAnnotations();
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		Class<?> actualType = Types.getActualType(instance.getClass());
 
 		if (isOptional(actualType)) {
@@ -116,9 +114,8 @@ public final class SingleElementProperty extends ElementProperty implements Cont
 		return 0;
 	}
 
-	@Nullable
 	@Override
-	public Integer getIndex() {
+	public @Nullable Integer getIndex() {
 		return null;
 	}
 

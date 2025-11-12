@@ -64,9 +64,8 @@ public final class MatchArbitraryIntrospector implements ArbitraryIntrospector {
 		return ArbitraryIntrospectorResult.NOT_INTROSPECTED;
 	}
 
-	@Nullable
 	@Override
-	public PropertyGenerator getRequiredPropertyGenerator(Property property) {
+	public @Nullable PropertyGenerator getRequiredPropertyGenerator(Property property) {
 		for (ArbitraryIntrospector introspector : this.introspectors) {
 			if (introspector instanceof Matcher && !((Matcher)introspector).match(property)) {
 				continue;

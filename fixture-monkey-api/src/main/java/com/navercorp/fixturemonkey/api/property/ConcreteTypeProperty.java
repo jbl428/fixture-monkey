@@ -73,9 +73,8 @@ public final class ConcreteTypeProperty implements Property {
 		return jvmType.getAnnotatedType();
 	}
 
-	@Nullable
 	@Override
-	public String getName() {
+	public @Nullable String getName() {
 		return abstractTypeProperty.getName();
 	}
 
@@ -86,9 +85,8 @@ public final class ConcreteTypeProperty implements Property {
 		return Collections.unmodifiableList(concatAnnotations);
 	}
 
-	@Nullable
 	@Override
-	public Object getValue(Object instance) {
+	public @Nullable Object getValue(Object instance) {
 		return abstractTypeProperty.getValue(instance);
 	}
 

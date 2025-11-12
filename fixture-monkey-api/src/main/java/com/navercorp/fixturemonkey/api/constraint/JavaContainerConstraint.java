@@ -24,11 +24,9 @@ import org.jspecify.annotations.Nullable;
 
 @API(since = "0.6.8", status = Status.MAINTAINED)
 public final class JavaContainerConstraint {
-	@Nullable
-	private final Integer minSize;
+	private final @Nullable Integer minSize;
 
-	@Nullable
-	private final Integer maxSize;
+	private final @Nullable Integer maxSize;
 
 	private final boolean notEmpty;
 
@@ -38,13 +36,11 @@ public final class JavaContainerConstraint {
 		this.notEmpty = notEmpty;
 	}
 
-	@Nullable
-	public Integer getMinSize() {
+	public @Nullable Integer getMinSize() {
 		return minSize;
 	}
 
-	@Nullable
-	public Integer getMaxSize() {
+	public @Nullable Integer getMaxSize() {
 		return maxSize;
 	}
 

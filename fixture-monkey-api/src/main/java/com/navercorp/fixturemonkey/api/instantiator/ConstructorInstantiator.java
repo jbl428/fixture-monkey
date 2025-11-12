@@ -51,6 +51,5 @@ public interface ConstructorInstantiator<T> extends Instantiator {
 	 */
 	List<@Nullable String> getInputParameterNames();
 
-	@Nullable
-	PropertyInstantiator<T> getPropertyInstantiator();
+	@Nullable PropertyInstantiator<T> getPropertyInstantiator();
 }

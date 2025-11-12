@@ -48,8 +48,7 @@ public final class LazyAnnotatedType<T> implements AnnotatedType {
 	}
 
 	@Override
-	@Nullable
-	public <A extends Annotation> A getAnnotation(Class<A> annotationClass) {
+	public @Nullable <A extends Annotation> A getAnnotation(Class<A> annotationClass) {
 		return null;
 	}
 
